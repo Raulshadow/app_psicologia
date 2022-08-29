@@ -22,27 +22,56 @@ class MyApp extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
+                    margin: EdgeInsets.all(5.0),
                     height: 75,
                     child: FlatButton(
                       color: Colors.red,
                       onPressed: () {},
-                      child: Text ("Ingresso 1"),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.fromLTRB(0.0, 10.0, 15.0, 10.0),
+                        child: Row(
+                          children: [
+                            Image(
+                              image: NetworkImage(
+                                  'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                            ),
+                            Text(
+                              '   Ingresso 1',
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-
             Row(
-              // linha 1
+              // linha 2
               children: [
                 Expanded(
                   child: Container(
+                    margin: EdgeInsets.all(5.0),
                     height: 75,
                     child: FlatButton(
                       color: Colors.green,
                       onPressed: () {},
-                      child: Text ("Ingresso 2"),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.fromLTRB(0.0, 10.0, 15.0, 10.0),
+                        child: Row(
+                          children: [
+                            Image(
+                              image: NetworkImage(
+                                  'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                            ),
+                            Text(
+                              '   Ingresso 2',
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
