@@ -1,6 +1,7 @@
 # app_ingresso
 
 Projeto BD.
+o main.dart aparece dentro da pasta lib
 
 ## Getting Started
 
