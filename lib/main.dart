@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // linha 1
             Row(
-              // linha 1
               children: [
                 Expanded(
                   child: Container(
@@ -75,8 +75,8 @@ class MyApp extends StatelessWidget {
                 ),
               ],
             ),
+            // linha 2
             Row(
-              // linha 2
               children: [
                 Expanded(
                   child: Container(
@@ -133,8 +133,8 @@ class MyApp extends StatelessWidget {
                 ),
               ],
             ),
+            // linha 3
             Row(
-              // linha 2
               children: [
                 Expanded(
                   child: Container(
