@@ -22,19 +22,47 @@ class MyApp extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.all(5.0),
+                    margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
                     height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      border: Border.all(
+                        color: Colors.deepPurpleAccent,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     child: FlatButton(
-                      color: Colors.red,
                       onPressed: () {},
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.fromLTRB(0.0, 10.0, 15.0, 10.0),
+                        margin: EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
                         child: Row(
                           children: [
-                            Image(
-                              image: NetworkImage(
-                                  'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.deepPurpleAccent,
+                                  width: 1.5,
+                                  style: BorderStyle.solid,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blue,
+                                    blurRadius: 2,
+                                  )
+                                ]
+                              ),
+                              child: Image(
+                                image: NetworkImage(
+                                    'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                                ),
                             ),
                             Text(
                               '   Ingresso 1',
@@ -52,22 +80,108 @@ class MyApp extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.all(5.0),
+                    margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
                     height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      border: Border.all(
+                        color: Colors.deepPurpleAccent,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     child: FlatButton(
-                      color: Colors.green,
                       onPressed: () {},
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.fromLTRB(0.0, 10.0, 15.0, 10.0),
+                        margin: EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
                         child: Row(
                           children: [
-                            Image(
-                              image: NetworkImage(
-                                  'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.deepPurpleAccent,
+                                    width: 1.5,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.blue,
+                                      blurRadius: 2,
+                                    )
+                                  ]
+                              ),
+                              child: Image(
+                                image: NetworkImage(
+                                    'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                              ),
                             ),
                             Text(
                               '   Ingresso 2',
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              // linha 2
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      border: Border.all(
+                        color: Colors.deepPurpleAccent,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: FlatButton(
+                      onPressed: () {},
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 60,
+                              height: 60,
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.deepPurpleAccent,
+                                    width: 1.5,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.blue,
+                                      blurRadius: 2,
+                                    )
+                                  ]
+                              ),
+                              child: Image(
+                                image: NetworkImage(
+                                    'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                              ),
+                            ),
+                            Text(
+                              '   Ingresso 3',
                             )
                           ],
                         ),
