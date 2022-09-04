@@ -33,39 +33,41 @@ class MyApp extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {},
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.blue[50]),
                       child: Container(
                         alignment: Alignment.centerLeft,
                         margin: EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
                         child: Row(
                           children: [
                             Container(
-                              width: 60,
-                              height: 60,
+                              width: 50,
+                              height: 50,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.deepPurpleAccent,
-                                  width: 1.5,
-                                  style: BorderStyle.solid,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blue,
-                                    blurRadius: 2,
-                                  )
-                                ]
-                              ),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.deepPurpleAccent,
+                                    width: 1.5,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.blue,
+                                      blurRadius: 2,
+                                    )
+                                  ]),
                               child: Image(
                                 image: NetworkImage(
                                     'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
-                                ),
+                              ),
                             ),
                             Text(
                               '   Ingresso 1',
+                              style: const TextStyle(color: Colors.black),
                             )
                           ],
                         ),
@@ -91,16 +93,18 @@ class MyApp extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {},
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.blue[50]),
                       child: Container(
                         alignment: Alignment.centerLeft,
                         margin: EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
                         child: Row(
                           children: [
                             Container(
-                              width: 60,
-                              height: 60,
+                              width: 50,
+                              height: 50,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -115,8 +119,7 @@ class MyApp extends StatelessWidget {
                                       color: Colors.blue,
                                       blurRadius: 2,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Image(
                                 image: NetworkImage(
                                     'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
@@ -124,6 +127,7 @@ class MyApp extends StatelessWidget {
                             ),
                             Text(
                               '   Ingresso 2',
+                              style: const TextStyle(color: Colors.black),
                             )
                           ],
                         ),
@@ -149,16 +153,18 @@ class MyApp extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {},
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.blue[50]),
                       child: Container(
                         alignment: Alignment.centerLeft,
                         margin: EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
                         child: Row(
                           children: [
                             Container(
-                              width: 60,
-                              height: 60,
+                              width: 50,
+                              height: 50,
                               padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -173,8 +179,7 @@ class MyApp extends StatelessWidget {
                                       color: Colors.blue,
                                       blurRadius: 2,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Image(
                                 image: NetworkImage(
                                     'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
@@ -182,6 +187,7 @@ class MyApp extends StatelessWidget {
                             ),
                             Text(
                               '   Ingresso 3',
+                              style: const TextStyle(color: Colors.black),
                             )
                           ],
                         ),
