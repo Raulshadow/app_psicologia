@@ -1,14 +1,17 @@
+import 'package:app_ingresso/Filmes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp()
+  ));
+
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: Text('App Ingresso'),
           centerTitle: true,
@@ -34,7 +37,9 @@ class MyApp extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Filmes()));
+                      },
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue[50]),
                       child: Container(
@@ -94,7 +99,9 @@ class MyApp extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Filmes()));
+                      },
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue[50]),
                       child: Container(
@@ -154,7 +161,9 @@ class MyApp extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Filmes()));
+                      },
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.blue[50]),
                       child: Container(
@@ -199,7 +208,7 @@ class MyApp extends StatelessWidget {
             ),
           ],
         ),
-      ),
+
     );
   }
 }
