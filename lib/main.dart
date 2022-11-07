@@ -212,13 +212,13 @@ class MyApp extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Novo()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Novo()));
         },
         label: const Text('Novo'),
         icon: const Icon(Icons.edit),
         backgroundColor: Colors.deepPurpleAccent,
       ),
-      );
+    );
   }
 }
