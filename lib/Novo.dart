@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Novo extends StatelessWidget {
   @override
@@ -47,10 +48,15 @@ class _NewMovieFormState extends State<NewMovieForm> {
             },
             decoration: const InputDecoration(labelText: 'Descrição'),
           ),
-          const Text('Foto', style: TextStyle(color: Colors.grey, fontSize: 16)),
-          ElevatedButton(onPressed: () {
-            
-          }, child: const Text('Adicionar')),
+          const Text('Foto',
+              style: TextStyle(color: Colors.grey, fontSize: 16)),
+          ElevatedButton(
+              onPressed: () async {
+                // Pick the photo from gallery
+                PickedFile pickedFile = (await ImagePicker()
+                    .pickImage(source: ImageSource.gallery)) as PickedFile;
+              },
+              child: const Text('Adicionar')),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
