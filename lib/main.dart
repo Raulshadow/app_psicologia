@@ -1,6 +1,8 @@
 import 'package:app_ingresso/Filmes.dart';
 import 'package:flutter/material.dart';
 
+import 'Novo.dart';
+
 void main() {
   runApp(MaterialApp(home: MyApp()));
 }
@@ -208,7 +210,15 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
-      
-    );
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Novo()));
+        },
+        label: const Text('Novo'),
+        icon: const Icon(Icons.edit),
+        backgroundColor: Colors.deepPurpleAccent,
+      ),
+      );
   }
 }
