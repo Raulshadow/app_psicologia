@@ -216,7 +216,7 @@ class MyApp extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => Novo()));
         },
         label: const Text('Novo'),
-        icon: const Icon(Icons.edit),
+        icon: const Icon(Icons.add),
         backgroundColor: Colors.deepPurpleAccent,
       ),
     );
