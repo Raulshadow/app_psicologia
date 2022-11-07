@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
                                   style: BorderStyle.solid,
                                 ),
                                 borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  const BoxShadow(
+                                boxShadow: const [
+                                  BoxShadow(
                                     color: Colors.blue,
                                     blurRadius: 2,
                                   )
@@ -120,8 +120,8 @@ class MyApp extends StatelessWidget {
                                   style: BorderStyle.solid,
                                 ),
                                 borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  const BoxShadow(
+                                boxShadow: const [
+                                  BoxShadow(
                                     color: Colors.blue,
                                     blurRadius: 2,
                                   )
@@ -183,8 +183,8 @@ class MyApp extends StatelessWidget {
                                   style: BorderStyle.solid,
                                 ),
                                 borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  const BoxShadow(
+                                boxShadow: const [
+                                  BoxShadow(
                                     color: Colors.blue,
                                     blurRadius: 2,
                                   )
@@ -208,6 +208,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
+      
     );
   }
 }
