@@ -45,6 +45,15 @@ class _NewMovieFormState extends State<NewMovieForm> {
               }
               return null;
             },
+            decoration: const InputDecoration(labelText: 'Categoria'),
+          ),
+          TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
             decoration: const InputDecoration(labelText: 'Descrição'),
           ),
           const Text('Foto', style: TextStyle(color: Colors.grey, fontSize: 16)),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Categorias_data = [
-    {
+  {
     'id': 'c1',
     'title': 'Ação',
     'color': Colors.red,
@@ -52,9 +52,16 @@ class Categorias extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Categorias"),
       ),
-      body: const Center(
-         
-        child: Text("Categorias"),
+      body: ListView(
+        children: Categorias_data.map((current) {
+          return Card(
+            child: ListTile(
+              title: Text(current['title'].toString()),
+              trailing: Text(current['quantidade'].toString()),
+              onTap: () {},
+            ),
+          );
+        }).toList(),
       ),
     );
   }
