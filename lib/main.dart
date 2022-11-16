@@ -1,6 +1,7 @@
 import 'package:app_ingresso/Filmes.dart';
 import 'package:flutter/material.dart';
 
+import 'Categorias.dart';
 import 'Novo.dart';
 
 void main() {
@@ -12,6 +13,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder:  (context) => Categorias()));
+          },
+          child: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+        ),
         title: const Text('App Ingresso'),
         centerTitle: true,
         backgroundColor: Colors.purple[500],
