@@ -4,6 +4,8 @@ var descricao_filme =
     "A história acompanha Sonic, Tails, Knuckles, Amy Rose e os novatos Big the Cat e E-102 Gamma em suas aventuras para coletarem as sete Esmeraldas do Caos, além de impedirem o Doutor Robotnik de liberar um mau antigo conhecido como Caos.";
 
 class Filmes extends StatelessWidget {
+  const Filmes({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,9 +42,48 @@ class Filmes extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.purple[500],
-          child: const Icon(Icons.shopping_cart)),
+          onPressed: () {
+            _showRemoveDialog(context);
+          },
+          backgroundColor: Colors.red[500],
+          mini: true,
+          child: const Icon(Icons.close)),
     ));
   }
+}
+
+// ----------------REMOVER FILME ------------------
+
+_showRemoveDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: const Text("Cancelar"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: const Text("Remover"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Remover Filme"),
+    content: const Text("Deseja remover o filme?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
