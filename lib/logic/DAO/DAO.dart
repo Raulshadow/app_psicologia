@@ -1,5 +1,6 @@
 
 import 'package:app_ingresso/logic/models/paciente.dart';
+import 'package:app_ingresso/logic/models/psicologo.dart';
 import 'package:app_ingresso/logic/mysql.dart';
 
 class DAO {
@@ -35,6 +36,40 @@ class DAO {
         print('Paciente inserido.');
       }, onError: () {
         print('ERRO, PACIENTE NÃO INSERIDO');
+      });
+      conn.close();
+    });
+  }
+
+  Future<List<Psicologo>> getPsicologos() async {
+    List<Psicologo> result = [];
+
+    db.getConnection().then((conn) {
+      String sql = 'SELECT * FROM projeto.pasicologo;';
+      conn.query(sql).then((results) {
+        for(var row in results){
+          result.add(
+              new Psicologo(row[0], row[1], row[2], row[3], row[4])
+          );
+        }
+      });
+      conn.close();
+    });
+    return result;
+  }
+
+  Future<void> insertPsicologo (Psicologo psicologo) async {
+    db.getConnection().then((conn) {
+      String sql = 'INSERT INTO projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES (?,?,?,?);';
+      conn.query(sql,[
+        psicologo.crp,
+        psicologo.cpf,
+        psicologo.primeiroNome,
+        psicologo.segundoNome
+      ]).then((result) {
+        print('Psicologo inserido.');
+      }, onError: () {
+        print('ERRO, PSICOLOGO NÃO INSERIDO');
       });
       conn.close();
     });
