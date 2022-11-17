@@ -9,19 +9,19 @@ class Novo extends StatelessWidget {
       appBar: AppBar(
         title: Text("Adicionar Psicólogo"),
       ),
-      body: const NewMovieForm(),
+      body: const NovoPsicologo(),
     );
   }
 }
 
-class NewMovieForm extends StatefulWidget {
-  const NewMovieForm({super.key});
+class NovoPsicologo extends StatefulWidget {
+  const NovoPsicologo({super.key});
 
   @override
-  _NewMovieFormState createState() => _NewMovieFormState();
+  _NovoPsicologoState createState() => _NovoPsicologoState();
 }
 
-class _NewMovieFormState extends State<NewMovieForm> {
+class _NovoPsicologoState extends State<NovoPsicologo> {
   final _formKey = GlobalKey<FormState>();
   var db = new Mysql();
 
@@ -86,6 +86,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
                 if (_formKey.currentState!.validate()) {
 
                   String _cpf = _cpfInputController.text;
+                  String _crp = _crpInputController.text;
                   String _primeiroNome = _primeiroNomeInputController.text;
                   String _segundoNome = _segundoNomeInputController.text;
 

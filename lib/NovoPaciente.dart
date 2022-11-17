@@ -9,19 +9,19 @@ class Novo extends StatelessWidget {
       appBar: AppBar(
         title: Text("Adicionar Paciente"),
       ),
-      body: const NewMovieForm(),
+      body: const NovoPaciente(),
     );
   }
 }
 
-class NewMovieForm extends StatefulWidget {
-  const NewMovieForm({super.key});
+class NovoPaciente extends StatefulWidget {
+  const NovoPaciente({super.key});
 
   @override
-  _NewMovieFormState createState() => _NewMovieFormState();
+  _NovoPacienteState createState() => _NovoPacienteState();
 }
 
-class _NewMovieFormState extends State<NewMovieForm> {
+class _NovoPacienteState extends State<NovoPaciente> {
   final _formKey = GlobalKey<FormState>();
   var db = new Mysql();
 
