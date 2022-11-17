@@ -47,14 +47,22 @@ class _MyAppState extends State<MyApp> {
           onTap: () {
             _awaitReturnValueFromCategoriasScreen(context);
           },
-          child: const Icon(
-            Icons.menu,
-            color: Colors.white,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(5.0, 15.0, 0.0, 0.0),
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: const Text(
+              'Psicólogos',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+              textWidthBasis: TextWidthBasis.longestLine,
+            ),
           ),
         ),
         title: const Text('Pacientes'),
         centerTitle: true,
         backgroundColor: Colors.purple[500],
+        leadingWidth: 100,
       ),
       body: psicologoSelecionado == null
           ? Column(
@@ -80,7 +88,9 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Paciente(name: 'John Doe',)));
+                                    builder: (context) => const Paciente(
+                                          name: 'John Doe',
+                                        )));
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.blue[50]),
@@ -110,7 +120,7 @@ class _MyAppState extends State<MyApp> {
                                       ]),
                                   child: const Image(
                                     image: NetworkImage(
-                                        'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                                        'https://cdn-icons-png.flaticon.com/512/456/456212.png'),
                                   ),
                                 ),
                                 Padding(
@@ -134,7 +144,8 @@ class _MyAppState extends State<MyApp> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: (pacientes.map((paciente) {
-                var psicologosDoPaciente = paciente['psicologos'] as List<String>;
+                var psicologosDoPaciente =
+                    paciente['psicologos'] as List<String>;
                 if (psicologosDoPaciente.contains(psicologoSelecionado)) {
                   return Row(
                     children: [
@@ -156,7 +167,9 @@ class _MyAppState extends State<MyApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Paciente(name: 'John Doe',)));
+                                      builder: (context) => const Paciente(
+                                            name: 'John Doe',
+                                          )));
                             },
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue[50]),
@@ -231,10 +244,9 @@ class _MyAppState extends State<MyApp> {
 
     // after the SecondScreen result comes back update the Text widget with it
 
-    if (    result == 'cancelar') {
+    if (result == 'cancelar') {
       setState(() {
         psicologoSelecionado = null;
-        
       });
     } else if (result != null) {
       setState(() {

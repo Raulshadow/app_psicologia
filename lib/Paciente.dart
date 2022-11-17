@@ -62,7 +62,7 @@ class Paciente extends StatelessWidget {
   }
 }
 
-// ----------------REMOVER FILME ------------------
+// ----------------REMOVER Paciente ------------------
 
 _showRemoveDialog(BuildContext context) {
   // set up the buttons
@@ -81,8 +81,8 @@ _showRemoveDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: const Text("Remover Filme"),
-    content: const Text("Deseja remover o filme?"),
+    title: const Text("Remover Paciente"),
+    content: const Text("Deseja remover o Paciente?"),
     actions: [
       cancelButton,
       continueButton,
