@@ -1,3 +1,4 @@
+import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -22,6 +23,21 @@ class NewMovieForm extends StatefulWidget {
 
 class _NewMovieFormState extends State<NewMovieForm> {
   final _formKey = GlobalKey<FormState>();
+  var db = new MySql();
+
+  final _primeiroNomeInputController = TextEditingController();
+  String _primeiroNome = "";
+  final _segundoNomeInputController = TextEditingController();
+  String _segundoNome = "";
+  final _cpfInputController = TextEditingController();
+  String _cpf = "";
+
+
+  void insert(String values, String table) {
+      db.getConnection().then((conn) {
+        String sql = "INSERT INTO" + table + "(" + values + ");";
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +47,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
+            controller: _primeiroNomeInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -40,6 +57,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
             decoration: const InputDecoration(labelText: 'Nome do Filme'),
           ),
           TextFormField(
+            controller: _segundoNomeInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -49,6 +67,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
             decoration: const InputDecoration(labelText: 'Categoria'),
           ),
           TextFormField(
+            controller: _cpfInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -57,23 +76,19 @@ class _NewMovieFormState extends State<NewMovieForm> {
             },
             decoration: const InputDecoration(labelText: 'Descrição'),
           ),
-          const Text('Foto',
-              style: TextStyle(color: Colors.grey, fontSize: 16)),
-          ElevatedButton(
-              onPressed: () async {
-                // Pick the photo from gallery
-                PickedFile pickedFile = (await ImagePicker()
-                    .pickImage(source: ImageSource.gallery)) as PickedFile;
-              },
-              child: const Text('Adicionar')),
+          //botão submit
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
+                  _cpf = _cpfInputController.text;
+                  _primeiroNome = _primeiroNomeInputController.text;
+                  _segundoNome = _segundoNomeInputController.text;
+
+                  insert("'"+ _cpf +"',DEFAULT,'"+ _primeiroNome +"','"
+                         + _segundoNome+"'","paciente");
+
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')));
                 }
