@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'Psicólogos.dart';
 import 'NovoPsicologo.dart';
+import 'NovaConsulta.dart';
 
 void main() {
   runApp(const MaterialApp(home: Psicologos()));
@@ -132,8 +133,7 @@ class _Psicologos extends State<Psicologos> {
           }).toList())),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Novo()));
+          _showRemoveDialog(context);
         },
         backgroundColor: Colors.deepPurpleAccent,
         child: const Icon(Icons.add),
@@ -158,4 +158,41 @@ class _Psicologos extends State<Psicologos> {
       });
     }
   }
+}
+
+_showRemoveDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = ElevatedButton(
+    child: const Text("Psicólogo"),
+    onPressed: () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => NovoPsicologo()));
+    },
+  );
+  Widget continueButton = ElevatedButton(
+    child: const Text("Consulta"),
+    onPressed: () {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => NovaConsulta()));
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Criar novo(a)"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+    actionsAlignment: MainAxisAlignment.center,
+    actionsOverflowButtonSpacing: 10,
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

@@ -2,26 +2,26 @@ import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Novo extends StatelessWidget {
+class NovoPsicologo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Adicionar Psicólogo"),
       ),
-      body: const NovoPsicologo(),
+      body: const NovoPsicologoForm(),
     );
   }
 }
 
-class NovoPsicologo extends StatefulWidget {
-  const NovoPsicologo({super.key});
+class NovoPsicologoForm extends StatefulWidget {
+  const NovoPsicologoForm({super.key});
 
   @override
-  _NovoPsicologoState createState() => _NovoPsicologoState();
+  _NovoPsicologoFormState createState() => _NovoPsicologoFormState();
 }
 
-class _NovoPsicologoState extends State<NovoPsicologo> {
+class _NovoPsicologoFormState extends State<NovoPsicologoForm> {
   final _formKey = GlobalKey<FormState>();
   var db = new Mysql();
 
@@ -29,7 +29,6 @@ class _NovoPsicologoState extends State<NovoPsicologo> {
   final _segundoNomeInputController = TextEditingController();
   final _cpfInputController = TextEditingController();
   final _crpInputController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +83,6 @@ class _NovoPsicologoState extends State<NovoPsicologo> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-
                   String _cpf = _cpfInputController.text;
                   String _crp = _crpInputController.text;
                   String _primeiroNome = _primeiroNomeInputController.text;

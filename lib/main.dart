@@ -229,7 +229,7 @@ class _MyAppState extends State<MyApp> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Novo()));
+              context, MaterialPageRoute(builder: (context) => NovoPaciente()));
         },
         backgroundColor: Colors.deepPurpleAccent,
         child: const Icon(Icons.add),

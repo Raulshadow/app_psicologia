@@ -2,33 +2,32 @@ import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Novo extends StatelessWidget {
+class NovoPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Adicionar Paciente"),
       ),
-      body: const NovoPaciente(),
+      body: const NovoPacienteForm(),
     );
   }
 }
 
-class NovoPaciente extends StatefulWidget {
-  const NovoPaciente({super.key});
+class NovoPacienteForm extends StatefulWidget {
+  const NovoPacienteForm({super.key});
 
   @override
-  _NovoPacienteState createState() => _NovoPacienteState();
+  _NovoPacienteFormState createState() => _NovoPacienteFormState();
 }
 
-class _NovoPacienteState extends State<NovoPaciente> {
+class _NovoPacienteFormState extends State<NovoPacienteForm> {
   final _formKey = GlobalKey<FormState>();
   var db = new Mysql();
 
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
   final _cpfInputController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,6 @@ class _NovoPacienteState extends State<NovoPaciente> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-
                   String _cpf = _cpfInputController.text;
                   String _primeiroNome = _primeiroNomeInputController.text;
                   String _segundoNome = _segundoNomeInputController.text;
