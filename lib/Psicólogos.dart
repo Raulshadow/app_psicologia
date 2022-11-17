@@ -1,7 +1,7 @@
 import 'package:app_ingresso/main.dart';
 import 'package:flutter/material.dart';
 
-import 'NovoPaciente.dart';
+import 'NovoPsicologo.dart';
 
 const Psicologos_data = [
   {

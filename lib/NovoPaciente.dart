@@ -82,7 +82,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
                       const SnackBar(content: Text('Processing Data')));
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('Adicionar'),
             ),
           ),
         ],
