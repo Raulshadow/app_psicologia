@@ -23,21 +23,12 @@ class NewMovieForm extends StatefulWidget {
 
 class _NewMovieFormState extends State<NewMovieForm> {
   final _formKey = GlobalKey<FormState>();
-  var db = new MySql();
+  var db = new Mysql();
 
   final _primeiroNomeInputController = TextEditingController();
-  String _primeiroNome = "";
   final _segundoNomeInputController = TextEditingController();
-  String _segundoNome = "";
   final _cpfInputController = TextEditingController();
-  String _cpf = "";
 
-
-  void insert(String values, String table) {
-      db.getConnection().then((conn) {
-        String sql = "INSERT INTO" + table + "(" + values + ");";
-      });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +45,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
               }
               return null;
             },
-            decoration: const InputDecoration(labelText: 'Nome do Filme'),
+            decoration: const InputDecoration(labelText: 'Primeiro Nome'),
           ),
           TextFormField(
             controller: _segundoNomeInputController,
@@ -64,7 +55,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
               }
               return null;
             },
-            decoration: const InputDecoration(labelText: 'Categoria'),
+            decoration: const InputDecoration(labelText: 'Segudno Nome'),
           ),
           TextFormField(
             controller: _cpfInputController,
@@ -74,7 +65,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
               }
               return null;
             },
-            decoration: const InputDecoration(labelText: 'Descrição'),
+            decoration: const InputDecoration(labelText: 'CPF'),
           ),
           //botão submit
           Padding(
@@ -82,12 +73,10 @@ class _NewMovieFormState extends State<NewMovieForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  _cpf = _cpfInputController.text;
-                  _primeiroNome = _primeiroNomeInputController.text;
-                  _segundoNome = _segundoNomeInputController.text;
 
-                  insert("'"+ _cpf +"',DEFAULT,'"+ _primeiroNome +"','"
-                         + _segundoNome+"'","paciente");
+                  String _cpf = _cpfInputController.text;
+                  String _primeiroNome = _primeiroNomeInputController.text;
+                  String _segundoNome = _segundoNomeInputController.text;
 
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')));
