@@ -7,7 +7,7 @@ class Novo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Novo Filme"),
+        title: Text("Adicionar Paciente"),
       ),
       body: const NewMovieForm(),
     );
