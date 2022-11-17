@@ -2,7 +2,7 @@ import 'package:app_ingresso/Paciente.dart';
 import 'package:flutter/material.dart';
 
 import 'Psicólogos.dart';
-import 'Novo.dart';
+import 'NovoPaciente.dart';
 
 void main() {
   runApp(const MaterialApp(home: MyApp()));
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Paciente()));
+                                    builder: (context) => const Paciente(name: 'John Doe',)));
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.blue[50]),
@@ -156,7 +156,7 @@ class _MyAppState extends State<MyApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Paciente()));
+                                      builder: (context) => const Paciente(name: 'John Doe',)));
                             },
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue[50]),

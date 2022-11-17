@@ -7,7 +7,7 @@ class Novo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Novo Filme"),
+        title: Text("Adicionar Psicólogo"),
       ),
       body: const NewMovieForm(),
     );
@@ -28,6 +28,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
   final _cpfInputController = TextEditingController();
+  final _crpInputController = TextEditingController();
 
 
   @override
@@ -67,6 +68,16 @@ class _NewMovieFormState extends State<NewMovieForm> {
             },
             decoration: const InputDecoration(labelText: 'CPF'),
           ),
+          TextFormField(
+            controller: _crpInputController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+            decoration: const InputDecoration(labelText: 'CRP'),
+          ),
           //botão submit
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -82,7 +93,7 @@ class _NewMovieFormState extends State<NewMovieForm> {
                       const SnackBar(content: Text('Processing Data')));
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('Adicionar'),
             ),
           ),
         ],

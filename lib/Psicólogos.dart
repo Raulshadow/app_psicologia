@@ -1,6 +1,8 @@
 import 'package:app_ingresso/main.dart';
 import 'package:flutter/material.dart';
 
+import 'NovoPsicologo.dart';
+
 const Psicologos_data = [
   {
     'id': 'c1',
@@ -40,6 +42,8 @@ const Psicologos_data = [
 ];
 
 class Psicologos extends StatelessWidget {
+  const Psicologos({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +72,14 @@ class Psicologos extends StatelessWidget {
             ),
           );
         }).toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Novo()));
+        },
+        backgroundColor: Colors.deepPurpleAccent,
+        child: const Icon(Icons.add),
       ),
     );
   }

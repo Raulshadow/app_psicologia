@@ -4,7 +4,9 @@ var descricao_filme =
     "A história acompanha Sonic, Tails, Knuckles, Amy Rose e os novatos Big the Cat e E-102 Gamma em suas aventuras para coletarem as sete Esmeraldas do Caos, além de impedirem o Doutor Robotnik de liberar um mau antigo conhecido como Caos.";
 
 class Paciente extends StatelessWidget {
-  const Paciente({super.key});
+  final String name;
+
+  const Paciente({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,15 @@ class Paciente extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
                 border: Border.all(color: Colors.blueAccent)),
-            child: Text(descricao_filme),
+            child: Column(
+              children: [
+                Text('Nome:$name'),
+                Text('Nome:$name'),
+                Text('Nome:$name'),
+                Text('Nome:$name'),
+
+              ],
+            )
           )
         ],
       ),
