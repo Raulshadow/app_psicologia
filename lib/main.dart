@@ -1,31 +1,31 @@
-import 'package:app_ingresso/Filmes.dart';
+import 'package:app_ingresso/Paciente.dart';
 import 'package:flutter/material.dart';
 
-import 'Categorias.dart';
+import 'Psicólogos.dart';
 import 'Novo.dart';
 
 void main() {
-  runApp(MaterialApp(home: MyApp()));
+  runApp(const MaterialApp(home: MyApp()));
 }
 
-const filmes = [
+const pacientes = [
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'title': 'O Poderoso Chefão',
-    'category': 'Drama',
+    'nome': 'Jhon Doe',
+    'psicologos': ['Adams', 'Clark'],
   },
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'title': 'O Poderoso Chefão',
-    'category': 'Ação',
+    'nome': 'Michael',
+    'psicologos': ['Baker'],
   },
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'title': 'O Poderoso Chefão',
-    'category': 'Drama',
+    'nome': 'Patricia',
+    'psicologos': ['Adams'],
   }
 ];
 
@@ -37,7 +37,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Object? categoriaSelecionada;
+  String? psicologoSelecionado;
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,14 @@ class _MyAppState extends State<MyApp> {
             color: Colors.white,
           ),
         ),
-        title: const Text('App Ingresso'),
+        title: const Text('Pacientes'),
         centerTitle: true,
         backgroundColor: Colors.purple[500],
       ),
-      body: categoriaSelecionada == null
+      body: psicologoSelecionado == null
           ? Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: (filmes.map((filme) {
+              children: (pacientes.map((paciente) {
                 return Row(
                   children: [
                     Expanded(
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Filmes()));
+                                    builder: (context) => const Paciente()));
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.blue[50]),
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, bottom: 20, right: 20, top: 10),
-                                  child: Text(filme['title']!,
+                                  child: Text(paciente['nome'].toString(),
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -131,94 +131,95 @@ class _MyAppState extends State<MyApp> {
                   ],
                 );
               }).toList()))
-          : 
-          Column(
+          : Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: (filmes.map((filme) {
-                if (filme['category'] == categoriaSelecionada) {
-
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
-                        height: 75,
-                        decoration: BoxDecoration(
-                          color: Colors.white24,
-                          border: Border.all(
-                            color: Colors.deepPurpleAccent,
-                            width: 2,
-                            style: BorderStyle.solid,
+              children: (pacientes.map((paciente) {
+                var psicologosDoPaciente = paciente['psicologos'] as List<String>;
+                if (psicologosDoPaciente.contains(psicologoSelecionado)) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+                          height: 75,
+                          decoration: BoxDecoration(
+                            color: Colors.white24,
+                            border: Border.all(
+                              color: Colors.deepPurpleAccent,
+                              width: 2,
+                              style: BorderStyle.solid,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Filmes()));
-                          },
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.blue[50]),
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            margin:
-                                const EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                        color: Colors.deepPurpleAccent,
-                                        width: 1.5,
-                                        style: BorderStyle.solid,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.blue,
-                                          blurRadius: 2,
-                                        )
-                                      ]),
-                                  child: const Image(
-                                    image: NetworkImage(
-                                        'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Paciente()));
+                            },
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.blue[50]),
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              margin: const EdgeInsets.fromLTRB(
+                                  0.0, 5.0, 10.0, 5.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: Colors.deepPurpleAccent,
+                                          width: 1.5,
+                                          style: BorderStyle.solid,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.blue,
+                                            blurRadius: 2,
+                                          )
+                                        ]),
+                                    child: const Image(
+                                      image: NetworkImage(
+                                          'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, bottom: 20, right: 20, top: 10),
-                                  child: Text(filme['title']!,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                      )),
-                                )
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 20,
+                                        right: 20,
+                                        top: 10),
+                                    child: Text(paciente['nome'].toString(),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                        )),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                );
+                    ],
+                  );
                 } else {
                   return Container();
                 }
               }).toList())),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Novo()));
         },
-        label: const Text('Novo'),
-        icon: const Icon(Icons.add),
         backgroundColor: Colors.deepPurpleAccent,
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -226,11 +227,19 @@ class _MyAppState extends State<MyApp> {
   void _awaitReturnValueFromCategoriasScreen(BuildContext context) async {
     // start the SecondScreen and wait for it to finish with a result
     final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Categorias()));
+        context, MaterialPageRoute(builder: (context) => Psicologos()));
 
     // after the SecondScreen result comes back update the Text widget with it
-    setState(() {
-      categoriaSelecionada = result['title'];
-    });
+
+    if (    result == 'cancelar') {
+      setState(() {
+        psicologoSelecionado = null;
+        
+      });
+    } else if (result != null) {
+      setState(() {
+        psicologoSelecionado = result['nome'];
+      });
+    }
   }
 }

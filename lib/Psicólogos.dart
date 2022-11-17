@@ -1,63 +1,66 @@
 import 'package:app_ingresso/main.dart';
 import 'package:flutter/material.dart';
 
-const Categorias_data = [
+const Psicologos_data = [
   {
     'id': 'c1',
-    'title': 'Ação',
-    'color': Colors.red,
+    'nome': 'Adams',
     'quantidade': 3,
   },
   {
     'id': 'c2',
-    'title': 'Aventura',
-    'color': Colors.blue,
+    'nome': 'Baker',
     'quantidade': 3,
   },
   {
     'id': 'c3',
-    'title': 'Comédia',
-    'color': Colors.green,
+    'nome': 'Clark',
     'quantidade': 3,
   },
   {
     'id': 'c4',
-    'title': 'Drama',
-    'color': Colors.purple,
+    'nome': 'Davis',
     'quantidade': 3,
   },
   {
     'id': 'c5',
-    'title': 'Ficção Científica',
-    'color': Colors.orange,
+    'nome': 'Evans',
     'quantidade': 3,
   },
   {
     'id': 'c6',
-    'title': 'Romance',
-    'color': Colors.pink,
+    'nome': 'Frank',
     'quantidade': 3,
   },
   {
     'id': 'c7',
-    'title': 'Terror',
-    'color': Colors.black,
+    'nome': 'Ghosh',
     'quantidade': 3,
   },
 ];
 
-class Categorias extends StatelessWidget {
+class Psicologos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Categorias"),
+        title: const Text("Psicólogos"),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(left: 15, bottom: 20, right: 20, top: 15),
+            child: Text('cancelar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                )),
+          )
+        ],
       ),
       body: ListView(
-        children: Categorias_data.map((current) {
+        children: Psicologos_data.map((current) {
           return Card(
             child: ListTile(
-              title: Text(current['title'].toString()),
+              title: Text(current['nome'].toString()),
               trailing: Text(current['quantidade'].toString()),
               onTap: () {
                 Navigator.pop(context, current);
