@@ -44,7 +44,7 @@ class _Psicologos extends State<Psicologos> {
               color: Colors.blue,
             ),
             child: const Text(
-              'Psicólogos',
+              'Pacientes',
               style: TextStyle(color: Colors.white, fontSize: 18),
               textWidthBasis: TextWidthBasis.longestLine,
             ),
