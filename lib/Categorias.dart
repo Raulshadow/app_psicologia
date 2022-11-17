@@ -1,3 +1,4 @@
+import 'package:app_ingresso/main.dart';
 import 'package:flutter/material.dart';
 
 const Categorias_data = [
@@ -58,7 +59,9 @@ class Categorias extends StatelessWidget {
             child: ListTile(
               title: Text(current['title'].toString()),
               trailing: Text(current['quantidade'].toString()),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context, current);
+              },
             ),
           );
         }).toList(),
