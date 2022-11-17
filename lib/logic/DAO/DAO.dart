@@ -74,4 +74,19 @@ class DAO {
       conn.close();
     });
   }
+
+  Future<void> insertConsulta (Paciente paciente, Psicologo psicologo) async {
+    db.getConnection().then((conn) {
+      String sql = 'INSERT INTO projeto.consulta (Paciente_cpf, Psicologo_crp) VALUES (?,?);';
+      conn.query(sql,[
+        paciente.cpf,
+        psicologo.crp
+      ]).then((result) {
+        print('Consulta inserida.');
+      }, onError: () {
+        print('ERRO, CONSULTA NÃO INSERIDA');
+      });
+      conn.close();
+    });
+  }
 }
