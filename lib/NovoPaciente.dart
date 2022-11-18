@@ -66,7 +66,7 @@ class _NovoPacienteFormState extends State<NovoPacienteForm> {
               }
               return null;
             },
-            decoration: const InputDecoration(labelText: 'Segudno Nome'),
+            decoration: const InputDecoration(labelText: 'Segundo Nome'),
           ),
           TextFormField(
             controller: _cpfInputController,

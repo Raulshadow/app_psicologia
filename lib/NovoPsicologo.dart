@@ -55,7 +55,7 @@ class _NovoPsicologoFormState extends State<NovoPsicologoForm> {
               }
               return null;
             },
-            decoration: const InputDecoration(labelText: 'Segudno Nome'),
+            decoration: const InputDecoration(labelText: 'Segundo Nome'),
           ),
           TextFormField(
             controller: _cpfInputController,
