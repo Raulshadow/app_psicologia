@@ -34,14 +34,17 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
   final _formKey = GlobalKey<FormState>();
   var db = Mysql();
   final String? nome;
-  final String? segundoNome;
-  final String? cpf;
+
 
   _EditarPacienteFormState({required this.nome, required String segundoNome, required String cpf});
   
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
   final _cpfInputController = TextEditingController();
+  
+  get segundoNome => null;
+  
+  get cpf => null;
 
   @override
   Widget build(BuildContext context) {

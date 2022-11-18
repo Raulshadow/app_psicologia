@@ -2,46 +2,48 @@ import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class EditarPaciente extends StatelessWidget {
+class EditarPsicologo extends StatelessWidget {
   final String nome;
   final String segundoNome;
-  final String cpf;
+  final String crp;
   
-  const EditarPaciente({super.key, required this.nome, required this.segundoNome, required this.cpf});
+  const EditarPsicologo({super.key, required this.nome, required this.segundoNome, required this.crp});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Paciente"),
       ),
-      body: EditarPacienteForm(nome: nome, cpf: cpf, segundoNome: segundoNome,),
+      body: EditarPsicologoForm(nome: nome, crp: crp, segundoNome: segundoNome,),
     );
   }
 }
 
-class EditarPacienteForm extends StatefulWidget {
+class EditarPsicologoForm extends StatefulWidget {
   final String nome;
   final String segundoNome;
-  final String cpf;
+  final String crp;
   
-   const EditarPacienteForm({super.key, required this.nome, required this.segundoNome, required this.cpf});
+   const EditarPsicologoForm({super.key, required this.nome, required this.segundoNome, required this.crp});
 
   @override
-  _EditarPacienteFormState createState() => _EditarPacienteFormState(nome: nome, cpf: cpf, segundoNome: segundoNome,);
+  _EditarPsicologoFormState createState() => _EditarPsicologoFormState(nome: nome, crp: crp, segundoNome: segundoNome,);
 }
 
-class _EditarPacienteFormState extends State<EditarPacienteForm> {
+class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
   final _formKey = GlobalKey<FormState>();
   var db = Mysql();
   final String? nome;
-  final String? segundoNome;
-  final String? cpf;
 
-  _EditarPacienteFormState({required this.nome, required String segundoNome, required String cpf});
+  _EditarPsicologoFormState({required this.nome, required String segundoNome, required String crp});
   
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
-  final _cpfInputController = TextEditingController();
+  final _crpInputController = TextEditingController();
+  
+  get segundoNome => null;
+  
+  get crp => null;
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +76,8 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
             decoration: const InputDecoration(labelText: 'Segundo Nome'),
           ),
           TextFormField(
-            initialValue: cpf,
-            controller: _cpfInputController,
+            initialValue: crp,
+            controller: _crpInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -90,7 +92,7 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  String _cpf = _cpfInputController.text;
+                  String _crp = _crpInputController.text;
                   String _primeiroNome = _primeiroNomeInputController.text;
                   String _segundoNome = _segundoNomeInputController.text;
 
