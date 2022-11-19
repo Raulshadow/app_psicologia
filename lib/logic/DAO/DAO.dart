@@ -11,20 +11,44 @@ class DAO {
 
   Future<List<Paciente>> getPacientes() async {
     List<Paciente> result = [];
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+    await conn.connect();
 
+    String sql = "Select * from projeto.paciente;";
+    conn.execute(sql).then((result) {
+      var data = {};
+      for (var row in result.rows) {
+        print(row.colAt(0)); //cpf
+        print(row.colAt(1)); //id
+        print(row.colAt(2)); //primeiro nome
+        print(row.colAt(3)); //segundo nome
+      }
+
+      print('Lista recuperada com sucesso!');
+      conn.close();
+    }, onError: (Object error) {
+      print(error);
+    });
+    /*
     db.getConnection().then((conn) {
       String sql = 'SELECT * FROM projeto.paciente;';
       conn.execute(sql).then((results) {
         for (var row in results.rows) {
-          result.add(new Paciente(
+          result.add(Paciente(
               row.colAt(0) as String,
               int.parse(row.colAt(1) as String),
               row.colAt(2) as String,
               row.colAt(3) as String));
         }
       });
-      conn.close();
     });
+    */
     return result;
   }
 
@@ -43,11 +67,9 @@ class DAO {
     var primeiroNome = paciente['primeiroNome'];
     var segundoNome = paciente['segundoNome'];
 
-    print(cpf);
     String sql =
         "INSERT INTO projeto.paciente (cpf, primeiro_nome, segundo_nome) VALUES ($cpf,'$primeiroNome','$segundoNome');";
     conn.execute(sql).then((result) {
-      print(result);
       print('PACIENTE INSERIDO');
     }, onError: (Object error) {
       print(error);

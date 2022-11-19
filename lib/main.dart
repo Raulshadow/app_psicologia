@@ -1,6 +1,7 @@
 import 'package:app_ingresso/Paciente.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'Psicólogos.dart';
 import 'NovoPaciente.dart';
@@ -40,6 +41,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var dao = new DAO();
   String? psicologoSelecionado;
+
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      print('--> TESTE');
+      var b = await dao.getPacientes().then((value) {
+        print('--> TESTE 2');
+        print(value);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
