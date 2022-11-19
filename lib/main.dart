@@ -230,11 +230,12 @@ class _MyAppState extends State<MyApp> {
               }).toList())),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NovoPaciente())).then((object) {
-                if (object != null) {
-                  dao.insertPaciente(object);
-                }
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NovoPaciente()))
+              .then((object) {
+            if (object != null) {
+              dao.insertPaciente(object);
+            }
           });
         },
         backgroundColor: Colors.deepPurpleAccent,

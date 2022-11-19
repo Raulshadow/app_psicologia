@@ -91,15 +91,16 @@ class _NovoPacienteFormState extends State<NovoPacienteForm> {
                 String cpf = _cpfInputController.text;
                 String primeiroNome = _primeiroNomeInputController.text;
                 String segundoNome = _segundoNomeInputController.text;
-
                 setState(() {
                   isNullOrEmpty(cpf) ? validate1 = false : validate1 = true;
                   isNullOrEmpty(primeiroNome) ? validate2 = false : validate2 = true;
                   isNullOrEmpty(segundoNome) ? validate3 = false : validate3 = true;
                 });
                 if(validate1 && validate2 && validate3) {
-                  widget.paciente = new Paciente(cpf, widget.paciente.id, primeiroNome, segundoNome);
-                  Navigator.of(context).pop(widget.paciente);
+                  widget.paciente = new Paciente(cpf, 1, primeiroNome, segundoNome);
+                  print(context);
+
+                  Navigator.of(context).pop({'cpf': cpf, 'primeiroNome': primeiroNome, 'segundoNome': segundoNome});
                 }
               },
               child: const Text('Adicionar'),
