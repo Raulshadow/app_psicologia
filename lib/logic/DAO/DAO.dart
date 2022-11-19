@@ -23,10 +23,10 @@ class DAO {
     String sql = "Select * from projeto.paciente;";
     await conn.execute(sql).then((result) {
       for (var row in result.rows) {
-        String? cpf = row.colAt(0);//cpf
-        int? id = int.parse(row.colAt(1) as String);//id
-        String? primeiroNome = row.colAt(2);//primeiro nome
-        String? segundoNome = row.colAt(3);//segundo nome
+        String? cpf = row.colAt(0); //cpf
+        int? id = int.parse(row.colAt(1) as String); //id
+        String? primeiroNome = row.colAt(2); //primeiro nome
+        String? segundoNome = row.colAt(3); //segundo nome
 
         Paciente teste = new Paciente(cpf, id, primeiroNome, segundoNome);
         lista.add(teste);
@@ -139,6 +139,30 @@ class DAO {
         "UPDATE projeto.paciente SET primeiro_nome = '$primeiroNome', segundo_nome = '$segundoNome' WHERE cpf = '$cpf';";
     conn.execute(sql).then((result) {
       print('PACIENTE ALTERADO');
+      conn.close();
+    }, onError: (Object error) {
+      print(error);
+    });
+  }
+
+  //FALTA EDITAR PSICOLOGO
+
+  Future<void> deletarPaciente(paciente) async {
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+
+    await conn.connect();
+
+    var cpf = paciente['cpf'];
+
+    String sql = "DELETE FROM projeto.paciente WHERE cpf = '$cpf';";
+    conn.execute(sql).then((result) {
+      print('PACIENTE DELETADO');
       conn.close();
     }, onError: (Object error) {
       print(error);

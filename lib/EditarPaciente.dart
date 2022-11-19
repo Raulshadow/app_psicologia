@@ -12,9 +12,11 @@ class EditarPaciente extends StatelessWidget {
       {super.key,
       required this.primeiroNome,
       required this.segundoNome,
-      required this.cpf});
+      required this.cpf,});
   @override
+  
   Widget build(BuildContext context) {
+    var dao = DAO();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Paciente"),
@@ -23,6 +25,17 @@ class EditarPaciente extends StatelessWidget {
         primeiroNome: primeiroNome,
         cpf: cpf,
         segundoNome: segundoNome,
+        dao: dao,
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          //função para remover paciente
+          _showRemoveDialog(context, dao: dao, cpf: cpf);
+
+        },
+        icon: const Icon(Icons.delete),
+        label: const Text('Remover'),
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -32,18 +45,22 @@ class EditarPacienteForm extends StatefulWidget {
   final String primeiroNome;
   final String segundoNome;
   final String cpf;
+  final DAO dao;
 
   const EditarPacienteForm(
       {super.key,
       required this.primeiroNome,
       required this.segundoNome,
-      required this.cpf});
+      required this.cpf,
+      required this.dao,
+      });
 
   @override
   _EditarPacienteFormState createState() => _EditarPacienteFormState(
         primeiroNome: primeiroNome,
         cpf: cpf,
-        segundoNome: segundoNome,
+        segundoNome: segundoNome, 
+        dao: dao
       );
 }
 
@@ -53,15 +70,17 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
   final String? primeiroNome;
   final String? segundoNome;
   final String? cpf;
+  
+  var dao;
 
   _EditarPacienteFormState(
       {required this.primeiroNome,
       required this.segundoNome,
-      required this.cpf});
+      required this.cpf,
+      required this.dao});
 
   @override
   Widget build(BuildContext context) {
-    var dao = DAO();
     final _primeiroNomeInputController =
         TextEditingController(text: primeiroNome);
     final _segundoNomeInputController =
@@ -96,7 +115,9 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
           TextFormField(
             controller: _cpfInputController,
             readOnly: true,
-            decoration: const InputDecoration(labelText: 'CPF'),
+            style: const TextStyle(color: Colors.grey),
+            decoration: const InputDecoration(
+                labelText: 'CPF', labelStyle: TextStyle(color: Colors.grey)),
           ),
           //botão submit
           Padding(
@@ -117,11 +138,48 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
                   'cpf': _cpfInputController.text
                 });
               },
-              child: const Text('Adicionar'),
+              child: const Text('Editar'),
             ),
           ),
         ],
       ),
     );
   }
+}
+
+_showRemoveDialog(BuildContext context, {required DAO dao, required String cpf}) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: const Text("Cancelar"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: const Text("Remover"),
+    onPressed: () {
+      dao.deletarPaciente({
+        'cpf': cpf,
+      });
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Remover Paciente"),
+    content: const Text("Deseja remover o Paciente?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
