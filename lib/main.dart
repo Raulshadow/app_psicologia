@@ -1,3 +1,4 @@
+import 'package:app_ingresso/EditarPaciente.dart';
 import 'package:app_ingresso/Paciente.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
 import 'package:flutter/material.dart';
@@ -14,20 +15,18 @@ const pacientes = [
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'nome': 'Jhon Doe',
+    'primeiroNome': 'Jhon',
+    'segundoNome': 'Doe',
+    'cpf': '1',
     'psicologos': ['Adams', 'Clark'],
   },
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'nome': 'Michael',
+    'primeiroNome': 'Michael',
+    'segundoNome': 'Doe',
+    'cpf': '3',
     'psicologos': ['Baker'],
-  },
-  {
-    'image':
-        'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'nome': 'Patricia',
-    'psicologos': ['Adams'],
   }
 ];
 
@@ -45,10 +44,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
-      print('--> TESTE');
       var b = await dao.getPacientes().then((value) {
-        print('--> TESTE 2');
-        print(value);
       });
     });
   }
@@ -78,7 +74,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: Colors.purple[500],
         leadingWidth: 100,
       ),
-      body: psicologoSelecionado == null
+      body: pacientes != []
           ? Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: (pacientes.map((paciente) {
@@ -102,8 +98,11 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Paciente(
-                                          name: 'John Doe',
+                                    builder: (context) =>  EditarPaciente(
+                                          cpf: paciente['cpf'].toString(), 
+                                          primeiroNome: paciente['primeiroNome'].toString(), 
+                                          segundoNome: paciente['segundoNome'].toString(),
+
                                         )));
                           },
                           style: TextButton.styleFrom(
@@ -140,7 +139,7 @@ class _MyAppState extends State<MyApp> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, bottom: 20, right: 20, top: 10),
-                                  child: Text(paciente['nome'].toString(),
+                                  child: Text('${paciente['primeiroNome']} ${paciente['segundoNome']}',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -155,91 +154,7 @@ class _MyAppState extends State<MyApp> {
                   ],
                 );
               }).toList()))
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: (pacientes.map((paciente) {
-                var psicologosDoPaciente =
-                    paciente['psicologos'] as List<String>;
-                if (psicologosDoPaciente.contains(psicologoSelecionado)) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
-                          height: 75,
-                          decoration: BoxDecoration(
-                            color: Colors.white24,
-                            border: Border.all(
-                              color: Colors.deepPurpleAccent,
-                              width: 2,
-                              style: BorderStyle.solid,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Paciente(
-                                            name: 'John Doe',
-                                          )));
-                            },
-                            style: TextButton.styleFrom(
-                                backgroundColor: Colors.blue[50]),
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              margin: const EdgeInsets.fromLTRB(
-                                  0.0, 5.0, 10.0, 5.0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: Colors.deepPurpleAccent,
-                                          width: 1.5,
-                                          style: BorderStyle.solid,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.blue,
-                                            blurRadius: 2,
-                                          )
-                                        ]),
-                                    child: const Image(
-                                      image: NetworkImage(
-                                          'https://cdn-icons-png.flaticon.com/512/4406/4406665.png'),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15,
-                                        bottom: 20,
-                                        right: 20,
-                                        top: 10),
-                                    child: Text(paciente['nome'].toString(),
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Container();
-                }
-              }).toList())),
+          : const Text('Sem pacientes, adicione um novo paciente'),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
@@ -269,7 +184,7 @@ class _MyAppState extends State<MyApp> {
       });
     } else if (result != null) {
       setState(() {
-        psicologoSelecionado = result['nome'];
+        psicologoSelecionado = result['primeiroNome'];
       });
     }
   }
