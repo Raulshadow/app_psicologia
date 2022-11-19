@@ -2,6 +2,7 @@
 import 'package:app_ingresso/logic/models/paciente.dart';
 import 'package:app_ingresso/logic/models/psicologo.dart';
 import 'package:app_ingresso/logic/mysql.dart';
+import 'package:flutter/material.dart';
 
 class DAO {
   Mysql db;
@@ -33,7 +34,9 @@ class DAO {
         paciente.primeiroNome,
         paciente.segundoNome
       ]).then((result) {
-        print('Paciente inserido.');
+        AlertDialog(
+          title: Text('PACIENTE INSERIDO'),
+        );
       }, onError: () {
         print('ERRO, PACIENTE NÃO INSERIDO');
       });

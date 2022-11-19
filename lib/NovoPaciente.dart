@@ -2,7 +2,7 @@ import 'package:app_ingresso/logic/BO/BO.dart';
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ingresso/logic/models/paciente.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:app_ingresso/logic/DAO/DAO.dart';
 
 class NovoPaciente extends StatelessWidget {
   @override
@@ -19,6 +19,10 @@ class NovoPaciente extends StatelessWidget {
 class NovoPacienteForm extends StatefulWidget {
   const NovoPacienteForm({super.key});
 
+  Paciente get paciente => new Paciente('', -1, '', '');
+
+  set paciente(Paciente paciente) {}
+
   @override
   _NovoPacienteFormState createState() => _NovoPacienteFormState();
 }
@@ -26,6 +30,7 @@ class NovoPacienteForm extends StatefulWidget {
 class _NovoPacienteFormState extends State<NovoPacienteForm> {
   final _formKey = GlobalKey<FormState>();
   var db = new Mysql();
+  var dao = new DAO();
 
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
@@ -94,6 +99,7 @@ class _NovoPacienteFormState extends State<NovoPacienteForm> {
                 });
                 if(validate1 && validate2 && validate3) {
                   widget.paciente = new Paciente(cpf, widget.paciente.id, primeiroNome, segundoNome);
+                  Navigator.of(context).pop(widget.paciente);
                 }
               },
               child: const Text('Adicionar'),
@@ -104,3 +110,4 @@ class _NovoPacienteFormState extends State<NovoPacienteForm> {
     );
   }
 }
+

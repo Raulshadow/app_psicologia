@@ -1,4 +1,5 @@
 import 'package:app_ingresso/Paciente.dart';
+import 'package:app_ingresso/logic/DAO/DAO.dart';
 import 'package:flutter/material.dart';
 
 import 'Psicólogos.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var dao = new DAO();
   String? psicologoSelecionado;
 
   @override
@@ -229,7 +231,11 @@ class _MyAppState extends State<MyApp> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NovoPaciente()));
+              context, MaterialPageRoute(builder: (context) => NovoPaciente())).then((object) {
+                if (object != null) {
+                  dao.insertPaciente(object);
+                }
+          });
         },
         backgroundColor: Colors.deepPurpleAccent,
         child: const Icon(Icons.add),
