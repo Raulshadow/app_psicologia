@@ -3,8 +3,8 @@ import 'package:mysql_client/mysql_client.dart';
 class Mysql {
    String host = '10.0.2.2',
                 user = 'root',
-                password = 'admin',
-                db = 'Projeto';
+                password = 'senhabd123.',
+                db = 'projeto';
    int port = 3306;
 
   Mysql();

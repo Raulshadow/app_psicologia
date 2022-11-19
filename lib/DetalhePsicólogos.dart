@@ -1,12 +1,12 @@
-import 'package:app_ingresso/Paciente.dart';
+import 'package:app_ingresso/DetalhePaciente.dart';
 import 'package:flutter/material.dart';
 
-import 'Psicólogos.dart';
+import 'DetalhePsicólogos.dart';
 import 'NovoPsicologo.dart';
 import 'NovaConsulta.dart';
 
 void main() {
-  runApp(const MaterialApp(home: Psicologos()));
+  runApp(const MaterialApp(home: DetalhePsicologos()));
 }
 
 const pacientes = [
@@ -21,14 +21,14 @@ const pacientes = [
   }
 ];
 
-class Psicologos extends StatefulWidget {
-  const Psicologos({super.key});
+class DetalhePsicologos extends StatefulWidget {
+  const DetalhePsicologos({super.key});
 
   @override
-  _Psicologos createState() => _Psicologos();
+  _DetalhePsicologos createState() => _DetalhePsicologos();
 }
 
-class _Psicologos extends State<Psicologos> {
+class _DetalhePsicologos extends State<DetalhePsicologos> {
   String? psicologoSelecionado;
 
   @override
@@ -79,7 +79,7 @@ class _Psicologos extends State<Psicologos> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Paciente(
+                                builder: (context) => const DetalhePaciente(
                                       name: 'John Doe',
                                     )));
                       },
@@ -144,7 +144,7 @@ class _Psicologos extends State<Psicologos> {
   void _awaitReturnValueFromCategoriasScreen(BuildContext context) async {
     // start the SecondScreen and wait for it to finish with a result
     final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Psicologos()));
+        context, MaterialPageRoute(builder: (context) => const DetalhePsicologos()));
 
     // after the SecondScreen result comes back update the Text widget with it
 

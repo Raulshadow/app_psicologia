@@ -1,10 +1,11 @@
-import 'package:app_ingresso/Paciente.dart';
+import 'package:app_ingresso/DetalhePaciente.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'Psicólogos.dart';
+import 'DetalhePsicólogos.dart';
 import 'NovoPaciente.dart';
+import 'logic/models/paciente.dart';
 
 void main() {
   runApp(const MaterialApp(home: MyApp()));
@@ -46,10 +47,14 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
       print('--> TESTE');
-      var b = await dao.getPacientes().then((value) {
-        print('--> TESTE 2');
-        print(value);
-      });
+      var b = await dao.getPacientes();
+      for(var linha in b) {
+        print(linha.cpf);
+        print(linha.id);
+        print(linha.primeiroNome);
+        print(linha.segundoNome);
+      }
+      print('--> FIM TESTE');
     });
   }
 
@@ -102,7 +107,7 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Paciente(
+                                    builder: (context) => const DetalhePaciente(
                                           name: 'John Doe',
                                         )));
                           },
@@ -181,7 +186,7 @@ class _MyAppState extends State<MyApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Paciente(
+                                      builder: (context) => const DetalhePaciente(
                                             name: 'John Doe',
                                           )));
                             },
@@ -259,7 +264,7 @@ class _MyAppState extends State<MyApp> {
   void _awaitReturnValueFromCategoriasScreen(BuildContext context) async {
     // start the SecondScreen and wait for it to finish with a result
     final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Psicologos()));
+        context, MaterialPageRoute(builder: (context) => DetalhePsicologos()));
 
     // after the SecondScreen result comes back update the Text widget with it
 

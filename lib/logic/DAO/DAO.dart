@@ -10,7 +10,7 @@ class DAO {
   DAO() : db = new Mysql();
 
   Future<List<Paciente>> getPacientes() async {
-    List<Paciente> result = [];
+    List<Paciente> lista = [];
     final conn = await MySQLConnection.createConnection(
       host: db.host,
       port: db.port,
@@ -21,13 +21,15 @@ class DAO {
     await conn.connect();
 
     String sql = "Select * from projeto.paciente;";
-    conn.execute(sql).then((result) {
-      var data = {};
+    await conn.execute(sql).then((result) {
       for (var row in result.rows) {
-        print(row.colAt(0)); //cpf
-        print(row.colAt(1)); //id
-        print(row.colAt(2)); //primeiro nome
-        print(row.colAt(3)); //segundo nome
+        String? cpf = row.colAt(0);//cpf
+        int? id = int.parse(row.colAt(1) as String);//id
+        String? primeiroNome = row.colAt(2);//primeiro nome
+        String? segundoNome = row.colAt(3);//segundo nome
+
+        Paciente teste = new Paciente(cpf, id, primeiroNome, segundoNome);
+        lista.add(teste);
       }
 
       print('Lista recuperada com sucesso!');
@@ -35,21 +37,7 @@ class DAO {
     }, onError: (Object error) {
       print(error);
     });
-    /*
-    db.getConnection().then((conn) {
-      String sql = 'SELECT * FROM projeto.paciente;';
-      conn.execute(sql).then((results) {
-        for (var row in results.rows) {
-          result.add(Paciente(
-              row.colAt(0) as String,
-              int.parse(row.colAt(1) as String),
-              row.colAt(2) as String,
-              row.colAt(3) as String));
-        }
-      });
-    });
-    */
-    return result;
+    return lista;
   }
 
   Future<void> insertPaciente(paciente) async {

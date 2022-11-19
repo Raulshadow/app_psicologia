@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 var descricao_filme =
     "A história acompanha Sonic, Tails, Knuckles, Amy Rose e os novatos Big the Cat e E-102 Gamma em suas aventuras para coletarem as sete Esmeraldas do Caos, além de impedirem o Doutor Robotnik de liberar um mau antigo conhecido como Caos.";
 
-class Paciente extends StatelessWidget {
+class DetalhePaciente extends StatelessWidget {
   final String name;
 
-  const Paciente({super.key, required this.name});
+  const DetalhePaciente({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
