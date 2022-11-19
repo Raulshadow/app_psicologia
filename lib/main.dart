@@ -1,4 +1,6 @@
+
 import 'package:app_ingresso/DetalhePaciente.dart';
+import 'package:app_ingresso/EditarPaciente.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -15,20 +17,18 @@ const pacientes = [
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'nome': 'Jhon Doe',
+    'primeiroNome': 'Jhon',
+    'segundoNome': 'Doe',
+    'cpf': '1',
     'psicologos': ['Adams', 'Clark'],
   },
   {
     'image':
         'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'nome': 'Michael',
+    'primeiroNome': 'Michael',
+    'segundoNome': 'Doe',
+    'cpf': '3',
     'psicologos': ['Baker'],
-  },
-  {
-    'image':
-        'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
-    'nome': 'Patricia',
-    'psicologos': ['Adams'],
   }
 ];
 
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: Colors.purple[500],
         leadingWidth: 100,
       ),
-      body: psicologoSelecionado == null
+      body: pacientes != []
           ? Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: (pacientes.map((paciente) {
@@ -107,8 +107,10 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const DetalhePaciente(
-                                          name: 'John Doe',
+                                    builder: (context) =>  EditarPaciente(
+                                          cpf: paciente['cpf'].toString(), 
+                                          primeiroNome: paciente['primeiroNome'].toString(), 
+                                          segundoNome: paciente['segundoNome'].toString(),
                                         )));
                           },
                           style: TextButton.styleFrom(
@@ -145,7 +147,7 @@ class _MyAppState extends State<MyApp> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, bottom: 20, right: 20, top: 10),
-                                  child: Text(paciente['nome'].toString(),
+                                  child: Text('${paciente['primeiroNome']} ${paciente['segundoNome']}',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -274,7 +276,7 @@ class _MyAppState extends State<MyApp> {
       });
     } else if (result != null) {
       setState(() {
-        psicologoSelecionado = result['nome'];
+        psicologoSelecionado = result['primeiroNome'];
       });
     }
   }

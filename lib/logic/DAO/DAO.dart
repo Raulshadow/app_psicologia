@@ -119,4 +119,29 @@ class DAO {
       conn.close();
     });
   }
+
+  Future<void> editarPaciente(paciente) async {
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+
+    await conn.connect();
+
+    var cpf = paciente['cpf'];
+    var primeiroNome = paciente['primeiroNome'];
+    var segundoNome = paciente['segundoNome'];
+
+    String sql =
+        "UPDATE projeto.paciente SET primeiro_nome = '$primeiroNome', segundo_nome = '$segundoNome' WHERE cpf = '$cpf';";
+    conn.execute(sql).then((result) {
+      print('PACIENTE ALTERADO');
+      conn.close();
+    }, onError: (Object error) {
+      print(error);
+    });
+  }
 }

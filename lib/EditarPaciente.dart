@@ -1,61 +1,79 @@
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:app_ingresso/logic/DAO/DAO.dart';
 
 class EditarPaciente extends StatelessWidget {
-  final String nome;
+  final String primeiroNome;
   final String segundoNome;
   final String cpf;
-  
-  const EditarPaciente({super.key, required this.nome, required this.segundoNome, required this.cpf});
+
+  const EditarPaciente(
+      {super.key,
+      required this.primeiroNome,
+      required this.segundoNome,
+      required this.cpf});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Paciente"),
       ),
-      body: EditarPacienteForm(nome: nome, cpf: cpf, segundoNome: segundoNome,),
+      body: EditarPacienteForm(
+        primeiroNome: primeiroNome,
+        cpf: cpf,
+        segundoNome: segundoNome,
+      ),
     );
   }
 }
 
 class EditarPacienteForm extends StatefulWidget {
-  final String nome;
+  final String primeiroNome;
   final String segundoNome;
   final String cpf;
-  
-   const EditarPacienteForm({super.key, required this.nome, required this.segundoNome, required this.cpf});
+
+  const EditarPacienteForm(
+      {super.key,
+      required this.primeiroNome,
+      required this.segundoNome,
+      required this.cpf});
 
   @override
-  _EditarPacienteFormState createState() => _EditarPacienteFormState(nome: nome, cpf: cpf, segundoNome: segundoNome,);
+  _EditarPacienteFormState createState() => _EditarPacienteFormState(
+        primeiroNome: primeiroNome,
+        cpf: cpf,
+        segundoNome: segundoNome,
+      );
 }
 
 class _EditarPacienteFormState extends State<EditarPacienteForm> {
   final _formKey = GlobalKey<FormState>();
   var db = Mysql();
-  final String? nome;
+  final String? primeiroNome;
+  final String? segundoNome;
+  final String? cpf;
 
-
-  _EditarPacienteFormState({required this.nome, required String segundoNome, required String cpf});
-  
-  final _primeiroNomeInputController = TextEditingController();
-  final _segundoNomeInputController = TextEditingController();
-  final _cpfInputController = TextEditingController();
-  
-  get segundoNome => null;
-  
-  get cpf => null;
+  _EditarPacienteFormState(
+      {required this.primeiroNome,
+      required this.segundoNome,
+      required this.cpf});
 
   @override
   Widget build(BuildContext context) {
+    var dao = DAO();
+    final _primeiroNomeInputController =
+        TextEditingController(text: primeiroNome);
+    final _segundoNomeInputController =
+        TextEditingController(text: segundoNome);
+    final _cpfInputController = TextEditingController(text: cpf);
+    print(primeiroNome);
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
-            initialValue: nome,
-
             controller: _primeiroNomeInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -66,7 +84,6 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
             decoration: const InputDecoration(labelText: 'Primeiro Nome'),
           ),
           TextFormField(
-            initialValue: segundoNome,
             controller: _segundoNomeInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -77,14 +94,8 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
             decoration: const InputDecoration(labelText: 'Segundo Nome'),
           ),
           TextFormField(
-            initialValue: cpf,
             controller: _cpfInputController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+            readOnly: true,
             decoration: const InputDecoration(labelText: 'CPF'),
           ),
           //botão submit
@@ -100,6 +111,11 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')));
                 }
+                dao.editarPaciente({
+                  'primeiroNome': _primeiroNomeInputController.text,
+                  'segundoNome': _segundoNomeInputController.text,
+                  'cpf': _cpfInputController.text
+                });
               },
               child: const Text('Adicionar'),
             ),
