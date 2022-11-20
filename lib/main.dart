@@ -1,4 +1,3 @@
-
 import 'package:app_ingresso/DetalhePaciente.dart';
 import 'package:app_ingresso/EditarPaciente.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
@@ -13,24 +12,18 @@ void main() {
   runApp(const MaterialApp(home: MyApp()));
 }
 
-const pacientes = [
+/*const pacientes = [
   {
-    'image':
-        'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
     'primeiroNome': 'Jhon',
     'segundoNome': 'Doe',
     'cpf': '1',
-    'psicologos': ['Adams', 'Clark'],
   },
   {
-    'image':
-        'https://i.pinimg.com/originals/0d/0d/0d/0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d.jpg',
     'primeiroNome': 'Michael',
     'segundoNome': 'Doe',
     'cpf': '3',
-    'psicologos': ['Baker'],
   }
-];
+];*/
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -42,18 +35,30 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var dao = new DAO();
   String? psicologoSelecionado;
+  var pacientes = [];
+  Future<void> refresh() async {
+    var data = await dao.getPacientes();
+    setState(() {
+      pacientes = data;
+    });
+  }
 
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
       print('--> TESTE');
-      var b = await dao.getPacientes();
-      for(var linha in b) {
+      var data = await dao.getPacientes();
+      /*
+      for(var linha in data) {
         print(linha.cpf);
         print(linha.id);
         print(linha.primeiroNome);
         print(linha.segundoNome);
       }
+      */
+      setState(() {
+        pacientes = data;
+      });
       print('--> FIM TESTE');
     });
   }
@@ -87,6 +92,10 @@ class _MyAppState extends State<MyApp> {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: (pacientes.map((paciente) {
+                var nome = paciente.primeiroNome + ' ' + paciente.segundoNome;
+                var primeiroNome = paciente.primeiroNome;
+                var segundoNome = paciente.segundoNome;
+                var cpf = paciente.cpf;
                 return Row(
                   children: [
                     Expanded(
@@ -107,11 +116,11 @@ class _MyAppState extends State<MyApp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  EditarPaciente(
-                                          cpf: paciente['cpf'].toString(), 
-                                          primeiroNome: paciente['primeiroNome'].toString(), 
-                                          segundoNome: paciente['segundoNome'].toString(),
-                                        )));
+                                    builder: (context) => EditarPaciente(
+                                          cpf: paciente.cpf,
+                                          primeiroNome: primeiroNome,
+                                          segundoNome: segundoNome,
+                                        ))).then((value) => refresh());
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.blue[50]),
@@ -147,7 +156,7 @@ class _MyAppState extends State<MyApp> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, bottom: 20, right: 20, top: 10),
-                                  child: Text('${paciente['primeiroNome']} ${paciente['segundoNome']}',
+                                  child: Text('$nome',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -162,7 +171,7 @@ class _MyAppState extends State<MyApp> {
                   ],
                 );
               }).toList()))
-          : const Text('Sem pacientes, adicione um novo paciente'),
+          : const FloatingActionButton(onPressed: null),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
@@ -171,6 +180,7 @@ class _MyAppState extends State<MyApp> {
             if (object != null) {
               dao.insertPaciente(object);
             }
+              refresh();
           });
         },
         backgroundColor: Colors.deepPurpleAccent,

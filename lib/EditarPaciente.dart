@@ -162,6 +162,7 @@ _showRemoveDialog(BuildContext context, {required DAO dao, required String cpf})
         'cpf': cpf,
       });
       Navigator.pop(context);
+      Navigator.pop(context);
     },
   );
 
