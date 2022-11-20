@@ -11,27 +11,6 @@ void main() {
   runApp(const MaterialApp(home: DetalhePsicologos()));
 }
 
-const pacientes = [
-  {
-    'primeiroNome': 'Jhon',
-    'segundoNome': 'Doe',
-    'cpf': '1',
-    'crp': '1',
-  },
-  {
-    'nome': 'Michael',
-    'segundoNome': 'Doe',
-    'cpf': '3',
-    'crp': '2',
-  },
-  {
-    'nome': 'Patricia',
-    'segundoNome': 'Doe',
-    'cpf': '4',
-    'crp': '3',
-  }
-];
-
 class DetalhePsicologos extends StatefulWidget {
   const DetalhePsicologos({super.key});
 
@@ -83,6 +62,11 @@ class _DetalhePsicologosState extends State<DetalhePsicologos> {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: (psicologos.map((psicologo) {
+                var nome = psicologo.primeiroNome + ' ' + psicologo.segundoNome;
+                var primeiroNome = psicologo.primeiroNome;
+                var segundoNome = psicologo.segundoNome;
+                var cpf = psicologo.cpf;
+                var crp = psicologo.crp;
                 return Row(
                   children: [
                     Expanded(
@@ -104,14 +88,12 @@ class _DetalhePsicologosState extends State<DetalhePsicologos> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditarPsicologo(
-
-
                                           //checar se é psicologo.atributo ou psicologo['atributo']
 
-                                          crp: psicologo.crp,
-                                          primeiroNome: psicologo.primeiroNome,
-                                          segundoNome: psicologo.segundoNome,
-                                          cpf: psicologo.cpf,
+                                          crp: crp,
+                                          primeiroNome: primeiroNome,
+                                          segundoNome: segundoNome,
+                                          cpf: cpf,
                                         ))).then((value) => refresh());
                           },
                           style: TextButton.styleFrom(
@@ -148,7 +130,7 @@ class _DetalhePsicologosState extends State<DetalhePsicologos> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, bottom: 20, right: 20, top: 10),
-                                  child: Text(psicologo['nome'].toString(),
+                                  child: Text('$nome',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -172,7 +154,7 @@ class _DetalhePsicologosState extends State<DetalhePsicologos> {
                   MaterialPageRoute(builder: (context) => NovoPsicologo()))
               .then((object) {
             if (object != null) {
-              dao.insertPaciente(object);
+              dao.insertPsicologo(object);
             }
             refresh();
           });

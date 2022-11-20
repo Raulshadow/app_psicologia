@@ -113,7 +113,7 @@ class DAO {
     var segundoNome = psicologo['segundoNome'];
 
     String sql =
-        "INSERT INTO Projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES ($crp,$cpf,$primeiroNome,$segundoNome);";
+        "INSERT INTO Projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES ($crp, $cpf, '$primeiroNome', '$segundoNome');";
     conn.execute(sql).then((result) {
       print('PSICOLOGO INSERIDO');
     }, onError: (Object error) {
@@ -169,7 +169,30 @@ class DAO {
     });
   }
 
-  //FALTA EDITAR PSICOLOGO
+  Future<void> editarPsicologo(psicologo) async {
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+
+    await conn.connect();
+
+    var crp = psicologo['crp'];
+    var primeiroNome = psicologo['primeiroNome'];
+    var segundoNome = psicologo['segundoNome'];
+
+    String sql =
+        "UPDATE Projeto.psicologo SET primeiro_nome = '$primeiroNome', segundo_nome = '$segundoNome' WHERE crp = '$crp';";
+    conn.execute(sql).then((result) {
+      print('PSICOLOGO ALTERADO');
+      conn.close();
+    }, onError: (Object error) {
+      print(error);
+    });
+  }
 
   Future<void> deletarPaciente(paciente) async {
     final conn = await MySQLConnection.createConnection(

@@ -1,6 +1,10 @@
+import 'package:app_ingresso/logic/models/psicologo.dart';
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'logic/BO/BO.dart';
+import 'logic/DAO/DAO.dart';
 
 class NovoPsicologo extends StatelessWidget {
   @override
@@ -24,11 +28,17 @@ class NovoPsicologoForm extends StatefulWidget {
 class _NovoPsicologoFormState extends State<NovoPsicologoForm> {
   final _formKey = GlobalKey<FormState>();
   var db = new Mysql();
+  var dao = new DAO();
 
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
   final _cpfInputController = TextEditingController();
   final _crpInputController = TextEditingController();
+
+  bool validate1 = true;
+  bool validate2 = true;
+  bool validate3 = true;
+  bool validate4 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -82,14 +92,18 @@ class _NovoPsicologoFormState extends State<NovoPsicologoForm> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  String _cpf = _cpfInputController.text;
-                  String _crp = _crpInputController.text;
-                  String _primeiroNome = _primeiroNomeInputController.text;
-                  String _segundoNome = _segundoNomeInputController.text;
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')));
+                String cpf = _cpfInputController.text;
+                String crp = _crpInputController.text;
+                String primeiroNome = _primeiroNomeInputController.text;
+                String segundoNome = _segundoNomeInputController.text;
+                setState(() {
+                  isNullOrEmpty(cpf) ? validate1 = false : validate1 = true;
+                  isNullOrEmpty(primeiroNome) ? validate2 = false : validate2 = true;
+                  isNullOrEmpty(segundoNome) ? validate3 = false : validate3 = true;
+                  isNullOrEmpty(crp) ? validate4 = false : validate4 = true;
+                });
+                if(validate1 && validate2 && validate3 && validate4) {
+                  Navigator.of(context).pop({'crp': crp,'cpf': cpf, 'primeiroNome': primeiroNome, 'segundoNome': segundoNome});
                 }
               },
               child: const Text('Adicionar'),

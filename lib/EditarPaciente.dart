@@ -1,3 +1,4 @@
+
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -85,7 +86,9 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
         TextEditingController(text: primeiroNome);
     final _segundoNomeInputController =
         TextEditingController(text: segundoNome);
-    final _cpfInputController = TextEditingController(text: cpf);
+    final _cpfInputController =
+    TextEditingController(text: cpf);
+
     print(primeiroNome);
     return Form(
       key: _formKey,
