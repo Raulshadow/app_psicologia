@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class DAO {
   Mysql db;
 
-  DAO() : db = new Mysql();
+  DAO() : db = Mysql();
 
   Future<List<Paciente>> getPacientes() async {
     List<Paciente> lista = [];
@@ -28,7 +28,7 @@ class DAO {
         String? primeiroNome = row.colAt(2); //primeiro nome
         String? segundoNome = row.colAt(3); //segundo nome
 
-        Paciente teste = new Paciente(cpf, id, primeiroNome, segundoNome);
+        Paciente teste = Paciente(cpf, id, primeiroNome, segundoNome);
         lista.add(teste);
       }
 
@@ -84,7 +84,7 @@ class DAO {
         String? primeiroNome = row.colAt(3); //primeiro nome
         String? segundoNome = row.colAt(4); //segundo nome
 
-        Psicologo teste = new Psicologo(crp, id, cpf, primeiroNome, segundoNome);
+        Psicologo teste = Psicologo(crp, id, cpf, primeiroNome, segundoNome);
         lista.add(teste);
       }
 
