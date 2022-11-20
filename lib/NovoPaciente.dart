@@ -97,9 +97,6 @@ class _NovoPacienteFormState extends State<NovoPacienteForm> {
                   isNullOrEmpty(segundoNome) ? validate3 = false : validate3 = true;
                 });
                 if(validate1 && validate2 && validate3) {
-                  widget.paciente = new Paciente(cpf, 1, primeiroNome, segundoNome);
-                  print(context);
-
                   Navigator.of(context).pop({'cpf': cpf, 'primeiroNome': primeiroNome, 'segundoNome': segundoNome});
                 }
               },
