@@ -192,4 +192,26 @@ class DAO {
       print(error);
     });
   }
+
+  Future<void> deletarPsicologo(psicologo) async {
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+
+    await conn.connect();
+
+    var crp = psicologo['crp'];
+
+    String sql = "DELETE FROM projeto.psicologo WHERE crp = '$crp';";
+    conn.execute(sql).then((result) {
+      print('PSICOLOGO DELETADO');
+      conn.close();
+    }, onError: (Object error) {
+      print(error);
+    });
+  }
 }
