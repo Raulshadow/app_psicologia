@@ -34,7 +34,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var dao = new DAO();
-  String? psicologoSelecionado;
   var pacientes = [];
   Future<void> refresh() async {
     var data = await dao.getPacientes();
@@ -69,7 +68,7 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            _awaitReturnValueFromCategoriasScreen(context);
+            alternarTelaPsicologo(context);
           },
           child: Container(
             padding: const EdgeInsets.fromLTRB(5.0, 15.0, 0.0, 0.0),
@@ -117,7 +116,7 @@ class _MyAppState extends State<MyApp> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditarPaciente(
-                                          cpf: paciente.cpf,
+                                          cpf: cpf,
                                           primeiroNome: primeiroNome,
                                           segundoNome: segundoNome,
                                         ))).then((value) => refresh());
@@ -171,7 +170,9 @@ class _MyAppState extends State<MyApp> {
                   ],
                 );
               }).toList()))
-          : const FloatingActionButton(onPressed: null),
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
@@ -180,7 +181,7 @@ class _MyAppState extends State<MyApp> {
             if (object != null) {
               dao.insertPaciente(object);
             }
-              refresh();
+            refresh();
           });
         },
         backgroundColor: Colors.deepPurpleAccent,
@@ -189,21 +190,10 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void _awaitReturnValueFromCategoriasScreen(BuildContext context) async {
+  void alternarTelaPsicologo(BuildContext context) async {
     // start the SecondScreen and wait for it to finish with a result
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DetalhePsicologos()));
-
-    // after the SecondScreen result comes back update the Text widget with it
-
-    if (result == 'cancelar') {
-      setState(() {
-        psicologoSelecionado = null;
-      });
-    } else if (result != null) {
-      setState(() {
-        psicologoSelecionado = result['primeiroNome'];
-      });
-    }
+    final result = await Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DetalhePsicologos()))
+        .then((value) => refresh());
   }
 }

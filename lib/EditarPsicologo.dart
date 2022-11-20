@@ -1,20 +1,33 @@
+import 'dart:html';
+
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditarPsicologo extends StatelessWidget {
-  final String nome;
+  final String primeiroNome;
   final String segundoNome;
   final String crp;
-  
-  const EditarPsicologo({super.key, required this.nome, required this.segundoNome, required this.crp});
+  final String cpf;
+
+  const EditarPsicologo(
+      {super.key,
+      required this.primeiroNome,
+      required this.segundoNome,
+      required this.crp,
+      required this.cpf});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Paciente"),
       ),
-      body: EditarPsicologoForm(nome: nome, crp: crp, segundoNome: segundoNome,),
+      body: EditarPsicologoForm(
+        nome: primeiroNome,
+        crp: crp,
+        segundoNome: segundoNome,
+        cpf: cpf,
+      ),
     );
   }
 }
@@ -23,27 +36,37 @@ class EditarPsicologoForm extends StatefulWidget {
   final String nome;
   final String segundoNome;
   final String crp;
-  
-   const EditarPsicologoForm({super.key, required this.nome, required this.segundoNome, required this.crp});
+  final String cpf;
+
+  const EditarPsicologoForm(
+      {super.key,
+      required this.nome,
+      required this.segundoNome,
+      required this.crp,
+      required this.cpf});
 
   @override
-  _EditarPsicologoFormState createState() => _EditarPsicologoFormState(nome: nome, crp: crp, segundoNome: segundoNome,);
+  _EditarPsicologoFormState createState() => _EditarPsicologoFormState();
 }
 
 class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
+  @override
+  EditarPsicologoForm get widget => super.widget;
+
   final _formKey = GlobalKey<FormState>();
   var db = Mysql();
-  final String? nome;
 
-  _EditarPsicologoFormState({required this.nome, required String segundoNome, required String crp});
-  
+  _EditarPsicologoFormState();
+
   final _primeiroNomeInputController = TextEditingController();
   final _segundoNomeInputController = TextEditingController();
   final _crpInputController = TextEditingController();
-  
-  get segundoNome => null;
-  
-  get crp => null;
+  final _cpfInputController = TextEditingController();
+
+  get nome => widget.nome;
+  get segundoNome => widget.segundoNome;
+  get crp => widget.crp;
+  get cpf => widget.cpf;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +77,6 @@ class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
         children: <Widget>[
           TextFormField(
             initialValue: nome,
-
             controller: _primeiroNomeInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -76,8 +98,8 @@ class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
             decoration: const InputDecoration(labelText: 'Segundo Nome'),
           ),
           TextFormField(
-            initialValue: crp,
-            controller: _crpInputController,
+            initialValue: cpf,
+            controller: _cpfInputController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -86,6 +108,17 @@ class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
             },
             decoration: const InputDecoration(labelText: 'CPF'),
           ),
+          TextFormField(
+            initialValue: crp,
+            controller: _crpInputController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+            decoration: const InputDecoration(labelText: 'CRP'),
+          ),
           //botão submit
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -93,6 +126,7 @@ class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   String _crp = _crpInputController.text;
+                  String _cpf = _cpfInputController.text;
                   String _primeiroNome = _primeiroNomeInputController.text;
                   String _segundoNome = _segundoNomeInputController.text;
 
