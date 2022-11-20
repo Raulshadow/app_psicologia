@@ -17,16 +17,31 @@ class EditarPaciente extends StatelessWidget {
   
   Widget build(BuildContext context) {
     var dao = DAO();
+    String psicologo_place_holder = 'Sr. Place Holder';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Paciente"),
       ),
-      body: EditarPacienteForm(
-        primeiroNome: primeiroNome,
-        cpf: cpf,
-        segundoNome: segundoNome,
-        dao: dao,
+      body:
+      Column(
+        children: [
+          EditarPacienteForm(
+            primeiroNome: primeiroNome,
+            cpf: cpf,
+            segundoNome: segundoNome,
+            dao: dao,
+          ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: Text("Psicologo: " + psicologo_place_holder
+          )
+        )
+        ],
       ),
+
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           //função para remover paciente
@@ -37,6 +52,7 @@ class EditarPaciente extends StatelessWidget {
         label: const Text('Remover'),
         backgroundColor: Colors.red,
       ),
+
     );
   }
 }
