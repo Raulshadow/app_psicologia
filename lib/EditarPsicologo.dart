@@ -23,7 +23,7 @@ class EditarPsicologo extends StatelessWidget {
     var dao = DAO();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Adicionar Psicologo"),
+        title: const Text("Editar Psicologo"),
       ),
       body: EditarPsicologoForm(
         primeiroNome: primeiroNome,

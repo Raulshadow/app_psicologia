@@ -20,7 +20,7 @@ class EditarPaciente extends StatelessWidget {
     var dao = DAO();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Adicionar Paciente"),
+        title: const Text("Editar Paciente"),
       ),
       body: EditarPacienteForm(
         primeiroNome: primeiroNome,
