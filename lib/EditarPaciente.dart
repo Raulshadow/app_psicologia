@@ -1,6 +1,7 @@
 
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
 
@@ -14,11 +15,18 @@ class EditarPaciente extends StatelessWidget {
       required this.primeiroNome,
       required this.segundoNome,
       required this.cpf,});
+
   @override
-  
   Widget build(BuildContext context) {
     var dao = DAO();
-    String psicologo_place_holder = 'Sr. Place Holder';
+    var psicologos = [];
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      print('--> TESTE');
+      var data = await dao.getConsultas({'cpf': cpf});
+        psicologos = data;
+      print('--> FIM TESTE');
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -33,12 +41,28 @@ class EditarPaciente extends StatelessWidget {
             segundoNome: segundoNome,
             dao: dao,
           ),
-        Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.blue),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: Text("Psicologo: " + psicologo_place_holder
-          )
+        psicologos != [] ?
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: (psicologos.map((psicologo) {
+            var nome = psicologo.primeiroNome + ' ' + psicologo.segundoNome;
+            return Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue),
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Text("Psicologo: " + nome),
+                ),
+              ],
+            );
+          })).toList(),
+        )
+            :Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue),
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            child: Text("Sem Psicólogos consultados")
         )
         ],
       ),
@@ -105,7 +129,6 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
     final _cpfInputController =
     TextEditingController(text: cpf);
 
-    print(primeiroNome);
     return Form(
       key: _formKey,
       child: Column(
@@ -144,10 +167,6 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  String _cpf = _cpfInputController.text;
-                  String _primeiroNome = _primeiroNomeInputController.text;
-                  String _segundoNome = _segundoNomeInputController.text;
-
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')));
                 }

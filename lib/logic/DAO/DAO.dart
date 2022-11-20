@@ -134,9 +134,10 @@ class DAO {
 
     var cpf = consulta['cpf'];
     var crp = consulta['crp'];
+    print(crp + " , " + cpf);
 
     String sql =
-        "INSERT INTO Projeto.consulta (Paciente_cpf, Psicologo_crp) VALUES ($cpf,$crp);";
+        "INSERT INTO Projeto.consulta (paciente_cpf, psicologo_crp) VALUES ($cpf,$crp);";
     conn.execute(sql).then((result) {
       print('CONSULTA INSERIDA');
     }, onError: (Object error) {
@@ -236,5 +237,39 @@ class DAO {
     }, onError: (Object error) {
       print(error);
     });
+  }
+
+  Future<List<Psicologo>> getConsultas(paciente) async {
+    List<Psicologo> lista = [];
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+    await conn.connect();
+
+    var cpf = paciente['cpf'];
+
+    String sql = "SELECT p.crp, p.id_psicologo, p.cpf, p.primeiro_nome, p.segundo_nome FROM Projeto.psicologo p INNER JOIN Projeto.consulta c ON p.crp = c.psicologo_crp WHERE c.paciente_cpf = '$cpf';";
+    await conn.execute(sql).then((result) {
+      for (var row in result.rows) {
+        String? crp = row.colAt(0); //crp
+        int? id = int.parse(row.colAt(1) as String); //id
+        String? cpf = row.colAt(2);
+        String? primeiroNome = row.colAt(3); //primeiro nome
+        String? segundoNome = row.colAt(4); //segundo nome
+
+        Psicologo teste = Psicologo(crp, id, cpf, primeiroNome, segundoNome);
+        lista.add(teste);
+      }
+
+      print('Lista de psicologos do paciente, recuperada com sucesso!');
+      conn.close();
+    }, onError: (Object error) {
+      print(error);
+    });
+    return lista;
   }
 }

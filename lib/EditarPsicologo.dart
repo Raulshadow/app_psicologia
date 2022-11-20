@@ -100,7 +100,6 @@ class _EditarPsicologoFormState extends State<EditarPsicologoForm> {
     final _crpInputController =
     TextEditingController(text: crp);
 
-    print(primeiroNome);
     return Form(
       key: _formKey,
       child: Column(

@@ -5,25 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'DetalhePsicólogos.dart';
+import 'NovaConsulta.dart';
 import 'NovoPaciente.dart';
 import 'logic/models/paciente.dart';
 
 void main() {
   runApp(const MaterialApp(home: MyApp()));
 }
-
-/*const pacientes = [
-  {
-    'primeiroNome': 'Jhon',
-    'segundoNome': 'Doe',
-    'cpf': '1',
-  },
-  {
-    'primeiroNome': 'Michael',
-    'segundoNome': 'Doe',
-    'cpf': '3',
-  }
-];*/
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -47,19 +35,29 @@ class _MyAppState extends State<MyApp> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
       print('--> TESTE');
       var data = await dao.getPacientes();
-      /*
-      for(var linha in data) {
-        print(linha.cpf);
-        print(linha.id);
-        print(linha.primeiroNome);
-        print(linha.segundoNome);
-      }
-      */
       setState(() {
         pacientes = data;
       });
       print('--> FIM TESTE');
     });
+  }
+
+  Widget consultaButtonOnPressed() {
+    return FloatingActionButton(
+      heroTag: 'btn1',
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => NovaConsulta()))
+            .then((object) {
+          if (object != null) {
+            dao.insertConsulta(object);
+          }
+          refresh();
+        });
+      },
+      backgroundColor: Colors.green,
+      child: const Icon(Icons.add),
+    );
   }
 
   @override
@@ -173,19 +171,30 @@ class _MyAppState extends State<MyApp> {
           : const Center(
               child: CircularProgressIndicator(),
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NovoPaciente()))
-              .then((object) {
-            if (object != null) {
-              dao.insertPaciente(object);
-            }
-            refresh();
-          });
-        },
-        backgroundColor: Colors.deepPurpleAccent,
-        child: const Icon(Icons.add),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            consultaButtonOnPressed(),
+            FloatingActionButton(
+              heroTag: 'btn2',
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NovoPaciente()))
+                    .then((object) {
+                  if (object != null) {
+                    dao.insertPaciente(object);
+                  }
+                  refresh();
+                });
+              },
+              backgroundColor: Colors.deepPurpleAccent,
+              child: const Icon(Icons.add),
+            )
+          ],
+        ),
       ),
     );
   }
