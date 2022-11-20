@@ -20,7 +20,7 @@ class DAO {
     );
     await conn.connect();
 
-    String sql = "Select * from projeto.paciente;";
+    String sql = "Select * from Projeto.paciente;";
     await conn.execute(sql).then((result) {
       for (var row in result.rows) {
         String? cpf = row.colAt(0); //cpf
@@ -56,7 +56,7 @@ class DAO {
     var segundoNome = paciente['segundoNome'];
 
     String sql =
-        "INSERT INTO projeto.paciente (cpf, primeiro_nome, segundo_nome) VALUES ($cpf,'$primeiroNome','$segundoNome');";
+        "INSERT INTO Projeto.paciente (cpf, primeiro_nome, segundo_nome) VALUES ($cpf,'$primeiroNome','$segundoNome');";
     conn.execute(sql).then((result) {
       print('PACIENTE INSERIDO');
     }, onError: (Object error) {
@@ -75,7 +75,7 @@ class DAO {
     );
     await conn.connect();
 
-    String sql = "Select * from projeto.psicologo;";
+    String sql = "Select * from Projeto.psicologo;";
     await conn.execute(sql).then((result) {
       for (var row in result.rows) {
         String? crp = row.colAt(0); //crp
@@ -113,7 +113,7 @@ class DAO {
     var segundoNome = psicologo['segundoNome'];
 
     String sql =
-        "INSERT INTO projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES ($crp,$cpf,$primeiroNome,$segundoNome);";
+        "INSERT INTO Projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES ($crp,$cpf,$primeiroNome,$segundoNome);";
     conn.execute(sql).then((result) {
       print('PSICOLOGO INSERIDO');
     }, onError: (Object error) {
@@ -136,7 +136,7 @@ class DAO {
     var crp = consulta['crp'];
 
     String sql =
-        "INSERT INTO projeto.consulta (Paciente_cpf, Psicologo_crp) VALUES ($cpf,$crp);";
+        "INSERT INTO Projeto.consulta (Paciente_cpf, Psicologo_crp) VALUES ($cpf,$crp);";
     conn.execute(sql).then((result) {
       print('CONSULTA INSERIDA');
     }, onError: (Object error) {
@@ -160,7 +160,7 @@ class DAO {
     var segundoNome = paciente['segundoNome'];
 
     String sql =
-        "UPDATE projeto.paciente SET primeiro_nome = '$primeiroNome', segundo_nome = '$segundoNome' WHERE cpf = '$cpf';";
+        "UPDATE Projeto.paciente SET primeiro_nome = '$primeiroNome', segundo_nome = '$segundoNome' WHERE cpf = '$cpf';";
     conn.execute(sql).then((result) {
       print('PACIENTE ALTERADO');
       conn.close();
@@ -184,7 +184,7 @@ class DAO {
 
     var cpf = paciente['cpf'];
 
-    String sql = "DELETE FROM projeto.paciente WHERE cpf = '$cpf';";
+    String sql = "DELETE FROM Projeto.paciente WHERE cpf = '$cpf';";
     conn.execute(sql).then((result) {
       print('PACIENTE DELETADO');
       conn.close();
@@ -206,7 +206,7 @@ class DAO {
 
     var crp = psicologo['crp'];
 
-    String sql = "DELETE FROM projeto.psicologo WHERE crp = '$crp';";
+    String sql = "DELETE FROM Projeto.psicologo WHERE crp = '$crp';";
     conn.execute(sql).then((result) {
       print('PSICOLOGO DELETADO');
       conn.close();

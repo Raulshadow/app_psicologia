@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:app_ingresso/logic/mysql.dart';
 import 'package:flutter/material.dart';
