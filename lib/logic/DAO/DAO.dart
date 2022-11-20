@@ -65,58 +65,82 @@ class DAO {
   }
 
   Future<List<Psicologo>> getPsicologos() async {
-    List<Psicologo> result = [];
+    List<Psicologo> lista = [];
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+    await conn.connect();
 
-    db.getConnection().then((conn) {
-      String sql = 'SELECT * FROM projeto.pasicologo;';
-      conn.execute(sql).then((results) {
-        for (var row in results.rows) {
-          result.add(new Psicologo(
-              row.colAt(0) as String,
-              int.parse(row.colAt(1) as String),
-              row.colAt(2) as String,
-              row.colAt(3) as String,
-              row.colAt(4) as String));
-        }
-      });
+    String sql = "Select * from projeto.psicologo;";
+    await conn.execute(sql).then((result) {
+      for (var row in result.rows) {
+        String? crp = row.colAt(0); //crp
+        int? id = int.parse(row.colAt(1) as String); //id
+        String? cpf = row.colAt(2);
+        String? primeiroNome = row.colAt(3); //primeiro nome
+        String? segundoNome = row.colAt(4); //segundo nome
+
+        Psicologo teste = new Psicologo(crp, id, cpf, primeiroNome, segundoNome);
+        lista.add(teste);
+      }
+
+      print('Lista de psicologos recuperada com sucesso!');
       conn.close();
+    }, onError: (Object error) {
+      print(error);
     });
-    return result;
+    return lista;
   }
 
-  Future<void> insertPsicologo(Psicologo psicologo) async {
-    db.getConnection().then((conn) {
-      String sql =
-          'INSERT INTO projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES (:crp,:cpf,:primeiro_nome,:segundo_nome);';
-      conn.execute(sql, {
-        "crp": psicologo.crp,
-        "cpf": psicologo.cpf,
-        "primeiro_nome": psicologo.primeiroNome,
-        "segundo_nome": psicologo.segundoNome
-      }).then((result) {
-        print('Psicologo inserido.');
-      }, onError: () {
-        print('ERRO, PSICOLOGO NÃO INSERIDO');
-      });
-      conn.close();
+  Future<void> insertPsicologo(psicologo) async {
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+
+    await conn.connect();
+
+    var crp = psicologo['crp'];
+    var cpf = psicologo['cpf'];
+    var primeiroNome = psicologo['primeiroNome'];
+    var segundoNome = psicologo['segundoNome'];
+
+    String sql =
+        "INSERT INTO projeto.psicologo (crp, cpf, primeiro_nome, segundo_nome) VALUES ($crp,$cpf,$primeiroNome,$segundoNome);";
+    conn.execute(sql).then((result) {
+      print('PSICOLOGO INSERIDO');
+    }, onError: (Object error) {
+      print(error);
     });
   }
 
-  Future<void> insertConsulta(Paciente paciente, Psicologo psicologo) async {
-    db.getConnection().then((conn) {
-      String sql =
-          'INSERT INTO projeto.consulta (Paciente_cpf, Psicologo_crp) VALUES (?,?);';
-      conn.execute(sql, {
-        "crp": psicologo.crp,
-        "cpf": psicologo.cpf,
-        "primeiro_nome": psicologo.primeiroNome,
-        "segundo_nome": psicologo.segundoNome
-      }).then((result) {
-        print('Consulta inserida.');
-      }, onError: () {
-        print('ERRO, CONSULTA NÃO INSERIDA');
-      });
-      conn.close();
+  Future<void> insertConsulta(consulta) async {
+    final conn = await MySQLConnection.createConnection(
+      host: db.host,
+      port: db.port,
+      userName: db.user,
+      password: db.password,
+      databaseName: db.db,
+    );
+
+    await conn.connect();
+
+    var cpf = consulta['cpf'];
+    var crp = consulta['crp'];
+
+    String sql =
+        "INSERT INTO projeto.consulta (Paciente_cpf, Psicologo_crp) VALUES ($cpf,$crp);";
+    conn.execute(sql).then((result) {
+      print('CONSULTA INSERIDA');
+    }, onError: (Object error) {
+      print(error);
     });
   }
 
