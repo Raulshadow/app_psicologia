@@ -1,4 +1,4 @@
-# app_ingresso
+# app_psicologia
 
 Projeto BD.
 o main.dart aparece dentro da pasta lib
