@@ -111,20 +111,6 @@ class _DetalheConsultaState extends State<DetalheConsulta> {
           : const Center(
               child: CircularProgressIndicator(),
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NovoPsicologo()))
-              .then((object) {
-            if (object != null) {
-              dao.insertPsicologo(object);
-            }
-            refresh();
-          });
-        },
-        backgroundColor: Colors.deepPurpleAccent,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
