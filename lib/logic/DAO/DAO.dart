@@ -1,3 +1,4 @@
+import 'package:app_ingresso/logic/models/consulta.dart';
 import 'package:mysql_client/mysql_client.dart';
 import 'package:app_ingresso/logic/models/paciente.dart';
 import 'package:app_ingresso/logic/models/psicologo.dart';
@@ -239,8 +240,8 @@ class DAO {
     });
   }
 
-  Future<List<Psicologo>> getConsultas(paciente) async {
-    List<Psicologo> lista = [];
+  Future<List<Consulta>> getConsultas() async {
+    List<Consulta> lista = [];
     final conn = await MySQLConnection.createConnection(
       host: db.host,
       port: db.port,
@@ -250,22 +251,20 @@ class DAO {
     );
     await conn.connect();
 
-    var cpf = paciente['cpf'];
-
-    String sql = "SELECT p.crp, p.id_psicologo, p.cpf, p.primeiro_nome, p.segundo_nome FROM projeto.Psicologo p INNER JOIN projeto.Consulta c ON p.crp = c.psicologo_crp WHERE c.paciente_cpf = $cpf;";
+    String sql = "SELECT c.id_consulta, psi.primeiro_nome, psi.segundo_nome, p.primeiro_nome, p.segundo_nome FROM projeto.Psicologo psi INNER JOIN projeto.Consulta c ON psi.crp = c.Psicologo_crp INNER JOIN projeto.Paciente p ON p.cpf = c.Paciente_cpf";
     await conn.execute(sql).then((result) {
       for (var row in result.rows) {
-        String? crp = row.colAt(0); //crp
-        int? id = int.parse(row.colAt(1) as String); //id
-        String? cpf = row.colAt(2);
-        String? primeiroNome = row.colAt(3); //primeiro nome
-        String? segundoNome = row.colAt(4); //segundo nome
+        int? id = int.parse(row.colAt(0) as String); //id
+        String? PsiprimeiroNome = row.colAt(1); //primeiro nome psicologo
+        String? PsisegundoNome = row.colAt(2); //segundo nome psicologo
+        String? PacprimeiroNome = row.colAt(3); //primeiro nome paciente
+        String? PacsegundoNome = row.colAt(4); //segundo nome paciente
 
-        Psicologo teste = Psicologo(crp, id, cpf, primeiroNome, segundoNome);
+        Consulta teste = Consulta(id, PsiprimeiroNome, PsisegundoNome, PacprimeiroNome, PacsegundoNome);
         lista.add(teste);
       }
 
-      print('Lista de psicologos do paciente, recuperada com sucesso!');
+      print('Lista de psicologos dos pacientes, recuperada com sucesso!');
       conn.close();
     }, onError: (Object error) {
       print(error);

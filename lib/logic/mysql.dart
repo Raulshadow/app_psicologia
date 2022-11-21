@@ -4,7 +4,7 @@ class Mysql {
   String host = 'databaseprojeto.cickhsbfvzrj.us-east-1.rds.amazonaws.com',
       user = 'root',
       password = 'alunobd123.',
-      db = 'Projeto';
+      db = 'projeto';
   int port = 3306;
 
   Mysql();

@@ -19,14 +19,6 @@ class EditarPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dao = DAO();
-    var psicologos = [];
-
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
-      print('--> TESTE');
-      var data = await dao.getConsultas({'cpf': cpf});
-        psicologos = data;
-      print('--> FIM TESTE');
-    });
 
     return Scaffold(
       appBar: AppBar(
@@ -41,29 +33,6 @@ class EditarPaciente extends StatelessWidget {
             segundoNome: segundoNome,
             dao: dao,
           ),
-        psicologos != [] ?
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: (psicologos.map((psicologo) {
-            var nome = psicologo.primeiroNome + ' ' + psicologo.segundoNome;
-            return Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue),
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Text("Psicologo: " + nome),
-                ),
-              ],
-            );
-          })).toList(),
-        )
-            :Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-            child: Text("Sem Psicólogos consultados")
-        )
         ],
       ),
 
@@ -128,6 +97,14 @@ class _EditarPacienteFormState extends State<EditarPacienteForm> {
         TextEditingController(text: segundoNome);
     final _cpfInputController =
     TextEditingController(text: cpf);
+    var psicologos = [];
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      print('--> TESTE');
+      var data = await dao.getConsultas({'cpf': cpf});
+      psicologos = data;
+      print('--> FIM TESTE');
+    });
 
     return Form(
       key: _formKey,

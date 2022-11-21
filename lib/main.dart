@@ -1,3 +1,4 @@
+import 'package:app_ingresso/DetalheConsulta.dart';
 import 'package:app_ingresso/DetalhePaciente.dart';
 import 'package:app_ingresso/EditarPaciente.dart';
 import 'package:app_ingresso/logic/DAO/DAO.dart';
@@ -80,6 +81,24 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
+        actions: <Widget>[
+          GestureDetector(
+          onTap: () {
+            alternarTelaConsulta(context);
+          },
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(5.0, 15.0, 0.0, 0.0),
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: const Text(
+              'Consultas',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+              textWidthBasis: TextWidthBasis.longestLine,
+            ),
+          ),
+        ),
+        ],
         title: const Text('Pacientes'),
         centerTitle: true,
         backgroundColor: Colors.purple[500],
@@ -203,6 +222,13 @@ class _MyAppState extends State<MyApp> {
     // start the SecondScreen and wait for it to finish with a result
     final result = await Navigator.push(context,
             MaterialPageRoute(builder: (context) => DetalhePsicologos()))
+        .then((value) => refresh());
+  }
+
+  void alternarTelaConsulta(BuildContext context) async {
+    // start the SecondScreen and wait for it to finish with a result
+    final result = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DetalheConsulta()))
         .then((value) => refresh());
   }
 }
